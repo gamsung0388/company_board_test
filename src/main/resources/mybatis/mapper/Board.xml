@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.dev.board.dao.BoardDAO">
+  		
+  <select id="selectBoard" parameterType="com.test.dev.board.dto.BoardDTO" resultType="com.test.dev.board.dto.BoardDTO">						
+	  	
+	SELECT 
+		ROW_NUMBER() OVER() AS RNUM, 
+	    B.BOARD_NUM,
+	    C.BOARD_CGY_TXT, 
+	    B.USER_ID, 
+	    B.BOARD_TITLE, 
+	    B.BOARD_TXT, 
+	    B.BOARD_TAG, 
+	    B.COMMENT_YN,
+	    B.BOARD_VIEWCNT,
+	    DATE_FORMAT(B.BOARD_DATE,'%Y-%m-%d') AS BOARD_DATE,
+	    (SELECT COUNT(*) FROM TB_BOARD_FILE TBF WHERE TBF.BOARD_NUM = B.BOARD_NUM)
+	FROM BOARD B
+	LEFT JOIN CATEGORY C ON B.BOARD_CGY_NUM = C.BOARD_CGY_NUM  
+	
+	<if test=" bnum != null ">
+		WHERE B.BOARD_NUM = #{bnum}
+	</if>
+	ORDER BY BOARD_NUM;
+	  	
+  </select>
+  
+  <select id="selectBoardDetail" parameterType="com.test.dev.board.dto.BoardDTO" resultType="com.test.dev.board.dto.BoardDTO">						
+	  	
+	SELECT 
+		B.BOARD_NUM,
+		C.BOARD_CGY_TXT, 
+		B.USER_ID,
+	    M.USER_NAME,
+		B.BOARD_TITLE, 
+		B.BOARD_TXT, 
+		B.BOARD_TAG, 
+		B.COMMENT_YN,
+		B.BOARD_VIEWCNT,
+		DATE_FORMAT(B.BOARD_DATE,'%Y-%m-%d') AS BOARD_DATE
+	FROM BOARD B
+	LEFT JOIN CATEGORY C ON B.BOARD_CGY_NUM = C.BOARD_CGY_NUM
+	LEFT JOIN MEMBERS M ON B.USER_ID = M.USER_ID
+	WHERE B.BOARD_NUM = #{bnum};
+	  	
+  </select>
+    
+	<insert id="insertBoard" parameterType="com.test.dev.board.dto.BoardDTO" useGeneratedKeys="true" keyProperty="board_num">
+		
+<!-- 		<selectKey resultType="string" keyProperty="board_num" order="BEFORE"> -->
+<!-- 	        SELECT MAX(ifnull(BOARD_NUM,0))+1 FROM BOARD         -->
+<!-- 	    </selectKey>    -->
+		
+		INSERT INTO 
+		BOARD(
+			BOARD_CGY_NUM, 
+			USER_ID, 
+			BOARD_TITLE, 
+			BOARD_TXT, 
+			BOARD_TAG, 
+			COMMENT_YN,
+			BOARD_VIEWCNT
+		)
+		VALUES(
+	        #{board_cgy_num},
+	        #{user_id},
+	        #{board_title},
+	        #{board_txt},
+	        #{board_tag},
+	        'N',
+	        '0'   
+		)
+	</insert>
+  
+	<update id="boardUpdate" parameterType="com.test.dev.board.dto.BoardDTO">
+		UPDATE BOARD
+		SET	BOARD_CGY_NUM = #{board_cgy_num},
+	      BOARD_TITLE = #{board_title},
+	      BOARD_TXT = #{board_txt},
+	      BOARD_TAG = #{board_tag}
+		WHERE BOARD_NUM = #{board_num}
+		
+	</update>
+	
+	<delete id="boardDelete">
+		DELETE 
+		FROM BOARD 
+		WHERE BOARD_NUM = #{bnum};
+	</delete>
+	 
+	<select id="selectCt" parameterType="com.test.dev.board.dto.CategoryDTO" resultType="com.test.dev.board.dto.CategoryDTO">
+		SELECT 
+			BOARD_CGY_NUM,
+		    BOARD_CGY_TXT 
+		FROM CATEGORY;  
+	</select>
+	
+	<!-- 게시판 파일 리스트 조회 -->
+	<select id="selectBoardFile" resultType="map">
+		SELECT 
+			TBF.BOARD_FILE_IDX AS BOARD_FILE_IDX,
+			TBF.BOARD_NUM AS BOARD_NUM,
+			TBF.FILE_ID AS FILE_ID,
+			TBF.USE_YN AS USE_YN, 
+			TF.ORIG_NM AS ORIG_NM,
+			TF.LOGI_PATH AS LOGI_PATH,
+			TF.EXT AS EXT
+		FROM 
+			TB_BOARD_FILE TBF
+		LEFT JOIN TB_FILE TF ON TBF.FILE_ID = TF.FILE_ID
+		WHERE
+			USE_YN = 'Y'
+		AND	TBF.BOARD_NUM = #{bnum};
+	</select>	
+	
+	<!-- 게시판 파일 테이블 INSERT -->
+	<insert id="insertBoardFile" parameterType="map">
+		INSERT INTO
+			TB_BOARD_FILE(
+				BOARD_NUM,
+				FILE_ID
+			)
+			VALUE(
+				#{bnum},
+				#{fileId}
+			)				
+	</insert>
+  
+	
+</mapper>

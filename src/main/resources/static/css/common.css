@@ -1,0 +1,13 @@
+@charset "UTF-8";
+ul.main_menu{
+	font-size: 20px;
+	list-style:none;
+    margin:1;
+    padding:1;
+}
+li{
+	display: inline-block;
+	margin-left : 20px;
+	vertical-align: top;
+	
+}
