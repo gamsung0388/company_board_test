@@ -49,9 +49,9 @@
     
 	<insert id="insertBoard" parameterType="com.test.dev.board.dto.BoardDTO" useGeneratedKeys="true" keyProperty="board_num">
 		
-<!-- 		<selectKey resultType="string" keyProperty="board_num" order="BEFORE"> -->
-<!-- 	        SELECT MAX(ifnull(BOARD_NUM,0))+1 FROM BOARD         -->
-<!-- 	    </selectKey>    -->
+		<selectKey resultType="string" keyProperty="board_num" order="BEFORE">
+	        SELECT MAX(BOARD_NUM)+1 FROM BOARD        
+	    </selectKey>   
 		
 		INSERT INTO 
 		BOARD(

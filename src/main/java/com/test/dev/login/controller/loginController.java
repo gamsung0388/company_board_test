@@ -1,35 +1,51 @@
 package com.test.dev.login.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import org.json.simple.JSONObject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.dev.login.service.loginService;
+import com.test.dev.member.dto.MemberDTO;
 
 @Controller 
 public class loginController{
 	
-	@GetMapping("/login")
-	public String test(){
-      return "/main/login";
+	@Autowired
+	loginService loginService;
+	
+	@GetMapping("/loginpage")
+	public String loginpage(){
+      return "/login/login";
     }
-  
-	@RequestMapping(value="/totallogin", method=RequestMethod.POST)
+	@GetMapping("memberJoinPage")
+	public String memberJoinpage() {
+		return "/login/memberjoin";
+	}
 	@ResponseBody
-	public Map<String, Object> login(@RequestParam Map<String,Object> param) throws Exception{
-		loginService loginService = null;
-	  
-		Map<String, Object> map = new HashMap<String, Object>();
-		map = loginService.login(param);
-	  	
+	@PostMapping("login")
+	public Map<String, Object> login(MemberDTO memberDTO,HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		Map<String, Object> map = loginService.login(memberDTO, session);
+		
 		return map;
 	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		
+		session.invalidate();
+		
+		return "redirect:/loginpage";
+	}
+			
 }
 

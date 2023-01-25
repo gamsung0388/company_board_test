@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.test.dev.loginDAO">
-	
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.dev.login.dao.LoginDAO">
+	<select id="login" parameterType="String" resultType="com.test.dev.member.dto.MemberDTO">
+		SELECT 
+			USER_ID, 
+		    USER_PW, 
+		    USER_NAME, 
+		    USER_AGE, 
+		    GRADE 
+		FROM MEMBERS
+		WHERE 1=1
+		AND USER_ID=#{userId};
+	</select>
 </mapper>

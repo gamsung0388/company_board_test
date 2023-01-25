@@ -9,7 +9,7 @@
 <link href ="/webjars/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="shortcut icon" href="/static/img/favicon.ico">
 <link href="/static/css/common.css" rel="stylesheet">
-<script src="/static/js/main/manu.js"></script>
+<script src="/static/js/main/menu.js"></script>
 </head>
 <body>
 
@@ -24,6 +24,8 @@
 				<li class="menu_lit"><a id="event" href="javascript:void(0);">이벤트</a></li>
 				<li class="menu_lit"><a id="question" href="javascript:void(0);">고객문의</a></li>
 				<li class="menu_lit"><a id="api" href="javascript:void(0);">api</a></li>
+				<li class="menu_lit"><a id="logout" href="javascript:void(0);">로그아웃</a></li>
+				<li class="menu_lit"><a id="memberUpdate" href="javascript:void(0);">회원수정</a></li>
 <!-- 				<li class="menu_lit"><a href=""></a></li> -->
 			</ul>
 		</div>

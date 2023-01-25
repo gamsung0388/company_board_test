@@ -40,8 +40,7 @@ public class BoardService {
 	
 	//등록	
 	public String insertBoard(BoardDTO boardDTO) throws Exception{
-		
-		boardDTO.setUser_id("test1234");
+				
 		boardDAO.insertBoard(boardDTO);
 		return "Y";
 	}

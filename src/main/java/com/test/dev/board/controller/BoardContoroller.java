@@ -1,7 +1,8 @@
 package com.test.dev.board.controller;
 
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,11 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.test.dev.board.dto.BoardDTO;
-import com.test.dev.board.dto.BoardFileDTO;
 import com.test.dev.board.dto.CategoryDTO;
 import com.test.dev.board.service.BoardService;
 import com.test.dev.page.controller.PageController;
@@ -25,8 +24,6 @@ public class BoardContoroller {
 	
 	@Autowired
 	private BoardService boardService;
-	
-	
 	
 	//게시물 상세로
 	@GetMapping("/board/detail")
@@ -80,13 +77,14 @@ public class BoardContoroller {
 	//게시물 등록
 	@ResponseBody
 	@GetMapping("/board/insert")
-	public String boardInsert(BoardDTO baordDTO)throws Exception{
-			
-		String successYN = boardService.insertBoard(baordDTO);
-		logger.info("insertBoard:" + baordDTO.toString());
+	public String boardInsert(BoardDTO boardDTO,HttpSession session)throws Exception{
 		
-		if(!baordDTO.getFileIdxs().isEmpty()) {
-			boardService.insertBoardFile(baordDTO);
+		boardDTO.setUser_id((String)session.getAttribute("userid"));
+		String successYN = boardService.insertBoard(boardDTO);
+		logger.info("insertBoard:" + boardDTO.toString());
+		
+		if(!boardDTO.getFileIdxs().isEmpty()) {
+			boardService.insertBoardFile(boardDTO);
 		}
 		return successYN;
 	}

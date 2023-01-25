@@ -23,7 +23,12 @@ $(function(){
 			pageId = "travelApi";
 			location.href = "/pageGo?pageId=" + pageId;
 		});		
-		
+		$("#logout").on('click',function(){
+			location.href = "/logout"
+		});
+		$("#memberUpdate").click(function(){
+			location.href = "/memberUpdate"
+		});
 	}
 		
 	pageGo();

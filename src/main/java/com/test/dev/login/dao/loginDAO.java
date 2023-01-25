@@ -1,10 +1,10 @@
 package com.test.dev.login.dao;
 
-import java.util.Map;
-
 import org.apache.ibatis.annotations.Mapper;
 
+import com.test.dev.member.dto.MemberDTO;
+
 @Mapper
-public interface loginDAO {
-	public Map<String, Object> login(Map<String, Object> map);
+public interface LoginDAO {
+	public MemberDTO login(String userId);
 }

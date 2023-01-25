@@ -3,50 +3,48 @@ package com.test.dev.login.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.test.dev.login.dao.loginDAO;
+import com.test.dev.login.dao.LoginDAO;
+import com.test.dev.member.dto.MemberDTO;
 
 @Service
-public class loginService implements loginDAO{
+public class loginService{
 		
-	@Override
-	public JSONObject login(Map<String, Object> map) {
+	@Autowired
+	LoginDAO loginDAO;
 
-		String testid = map.get("testid").toString();
-		String testpw = map.get("testid").toString();
+	public Map<String, Object> login(MemberDTO memberDTO, HttpSession session) {
+
+		String testid = memberDTO.getUser_id();
+		String testpw = memberDTO.getUser_pw();
 		
-		String testValue = "";
-		String testText = "";
-			  
-		if(testid != "ryan9320" ) {
-			testValue = "N";
-			testText = "아이디를 다시 입력해주세요";
-		}else if (testpw == "1111") {
-			testValue = "N";
-			testText = "비밀번호를 다시 입력해주세요";
-		}else {
-			testValue = "Y";
-			testText = "로그인을 성공하셨습니다.";
+		MemberDTO md = loginDAO.login(testid);
+		
+		String msg = "";
+		String code = "N";
+		System.out.println();
+		if(md == null) {
+			msg+= "아이디가 맞지 않습니다";			
+		}else if(!testpw.equals(md.getUser_pw())) {
 			
+			msg+= "비밀번호가 맞지않습니다.";
+		}else {
+			msg+= "로그인이 성공했습니다.";
+			session.setAttribute("userid", md.getUser_id());
+			code = "Y";
 		}
-		  
-		Map<String, Object> test = new HashMap<String,Object>();
-		  
-		try {
-			test.put("testVal", testValue);
-			test.put("testText", testText);	
-		} catch (Exception e) {
-			System.out.println(e);
-		} 
-		  	  
-		System.out.println("data::" + test);
-		  
-		JSONObject data = new JSONObject(test);
 		
-		return data;
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("msg", msg);
+		map.put("code", code);
+		
+		return map;
 	}
 	
 	

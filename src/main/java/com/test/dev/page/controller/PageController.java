@@ -2,6 +2,8 @@ package com.test.dev.page.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.test.dev.board.dto.BoardDTO;
 import com.test.dev.board.service.BoardService;
+import com.test.dev.member.dto.MemberDTO;
+import com.test.dev.member.service.MemberService;
 
 @Controller
 public class PageController {
@@ -36,6 +40,9 @@ public class PageController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	//게시물페이지로
 	@GetMapping("/board/board")
@@ -63,9 +70,25 @@ public class PageController {
 	
 	//공지사항,문의사항 페이지로
 	@GetMapping("/board/travelApi")
-	public String travelApi()throws Exception{
+	public String travelApi() throws Exception{
 		return "/board/travelApi";
 	}
+	
+	@GetMapping("/memberUpdate")
+	public ModelAndView memberUpdate(HttpSession session) throws Exception{
+		
+		ModelAndView mv = new ModelAndView(); 
+		
+		String userId = (String)session.getAttribute("userid");
+		
+		MemberDTO memberDTO = memberService.memberSelect(userId);
+		
+		mv.addObject("memberDTO",memberDTO);
+		mv.setViewName("/login/setting");
+		
+		return mv;
+	}
+	
 	
 	
 }
