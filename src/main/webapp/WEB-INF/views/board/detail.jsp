@@ -44,7 +44,7 @@
 			</tr>
 			<c:forEach var="fileList" items="${boardFilelist}"> 
 				<tr>
-					<td>
+					<td >
 						<c:out value="${fileList.ORIG_NM}"></c:out>
 						<a href="/file-download/${fileList.FILE_ID}"><img src="/static/img/download.png" style="width:20px; height:auto; vertical-align: middle; cursor: pointer;"/></a>
 					</td>

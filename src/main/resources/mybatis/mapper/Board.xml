@@ -21,15 +21,14 @@
 	LEFT JOIN CATEGORY C ON B.BOARD_CGY_NUM = C.BOARD_CGY_NUM  
     LEFT JOIN MEMBERS M on B.USER_ID = M.USER_ID
 	ORDER BY BOARD_NUM DESC
-	<if test="keyword!=null">
-		<if test="searchType.equals('title')">
-			#AND BOARD_TITLE LIKE '% #{keyword} %'
-	    </if>
-		<if test="searchType.equals('username')">
-			AND USER_NAME LIKE '% #{keyword} %'
-		</if>
-	</if>
+<!-- 	<if test="searchType.equals('title')"> -->
+<!-- 		title like CONCAT('%',#{keyword},'%') -->
 	
+<!-- 		AND BOARD_TITLE LIKE CONCAT('%',#{keyword},'%') -->
+<!--     </if> -->
+<!-- 	<if test="searchType.equals('username')"> -->
+<!-- 		AND USER_NAME LIKE CONCAT('%',#{keyword},'%') -->
+<!-- 	</if> -->	
 	LIMIT #{pagination.limitStart},#{recordSize};
   </select>
   <select id="count" parameterType="com.test.dev.page.dto.SearchDTO" resultType="int">

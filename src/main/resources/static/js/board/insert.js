@@ -86,7 +86,7 @@ $(function(){
 	//등록,수정 버튼
 	$(document).on('click',"#insert",function(){
 		
-		if(content_files.length>0){
+		if(fileCount>0){
 			console.log("추가파일이 있을때")
 			var form = $("#fileForm");
 			var formData = new FormData(form[0]);

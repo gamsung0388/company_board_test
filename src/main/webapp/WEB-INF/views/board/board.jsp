@@ -17,14 +17,6 @@
 <body>
 	<jsp:include page="../menu.jsp" flush="false"></jsp:include>	
 	<div>
-		<div>
-			<select id="searchVal" >
-				<option value="title">제목</option>
-				<option value="username">글쓴이</option>
-			</select>
-			<input id="searchtxt" type="text">
-			<button id="searchBtn">검색</button>
-		</div>
 		<table class="table table-boarderless">
 			<tr>
 				<th scope="col">번호</th>
