@@ -36,4 +36,14 @@
 		WHERE 1=1
 		AND USER_ID = #{userId};
 	</select>
+	<update id="memberUpdate" parameterType="com.test.dev.member.dto.MemberDTO">
+		UPDATE MEMBERS
+		SET	USER_PW = #{user_pw},
+			USER_NAME =#{user_name},
+			USER_AGE =#{user_age},
+		 	GRADE = #{grade} 
+		WHERE 1=1
+		AND USER_ID = #{user_id} 
+			
+	</update>	
 </mapper>

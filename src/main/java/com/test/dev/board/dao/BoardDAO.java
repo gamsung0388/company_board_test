@@ -7,11 +7,16 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.test.dev.board.dto.BoardDTO;
 import com.test.dev.board.dto.CategoryDTO;
+import com.test.dev.page.dto.SearchDTO;
 
 @Mapper
 public interface BoardDAO {
-	public List<BoardDTO> selectBoard() throws Exception;
+	
+	public List<BoardDTO> selectBoard(SearchDTO params) throws Exception;
+	public int count(SearchDTO params) throws Exception;
 	public BoardDTO selectBoardDetail(String bnum) throws Exception;
+	public void readCnt(String bnum) throws Exception;
+	
 	public void insertBoard(BoardDTO baordDTO) throws Exception;
 	public void boardUpdate(BoardDTO baordDTO) throws Exception;
 	public void boardDelete(String bnum) throws Exception;

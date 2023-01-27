@@ -3,28 +3,40 @@
 
 <mapper namespace="com.test.dev.board.dao.BoardDAO">
   		
-  <select id="selectBoard" parameterType="com.test.dev.board.dto.BoardDTO" resultType="com.test.dev.board.dto.BoardDTO">						
+  <select id="selectBoard" parameterType="com.test.dev.page.dto.SearchDTO" resultType="com.test.dev.board.dto.BoardDTO">						
 	  	
 	SELECT 
 		ROW_NUMBER() OVER() AS RNUM, 
 	    B.BOARD_NUM,
 	    C.BOARD_CGY_TXT, 
-	    B.USER_ID, 
+	    M.USER_NAME, 
 	    B.BOARD_TITLE, 
 	    B.BOARD_TXT, 
 	    B.BOARD_TAG, 
 	    B.COMMENT_YN,
 	    B.BOARD_VIEWCNT,
 	    DATE_FORMAT(B.BOARD_DATE,'%Y-%m-%d') AS BOARD_DATE,
-	    (SELECT COUNT(*) FROM TB_BOARD_FILE TBF WHERE TBF.BOARD_NUM = B.BOARD_NUM)
+	    (SELECT COUNT(*) FROM TB_BOARD_FILE TBF WHERE TBF.BOARD_NUM = B.BOARD_NUM) AS BOARD_FILE_CNT
 	FROM BOARD B
 	LEFT JOIN CATEGORY C ON B.BOARD_CGY_NUM = C.BOARD_CGY_NUM  
-	
-	<if test=" bnum != null ">
-		WHERE B.BOARD_NUM = #{bnum}
+    LEFT JOIN MEMBERS M on B.USER_ID = M.USER_ID
+	ORDER BY BOARD_NUM DESC
+	<if test="keyword!=null">
+		<if test="searchType.equals('title')">
+			#AND BOARD_TITLE LIKE '% #{keyword} %'
+	    </if>
+		<if test="searchType.equals('username')">
+			AND USER_NAME LIKE '% #{keyword} %'
+		</if>
 	</if>
-	ORDER BY BOARD_NUM;
-	  	
+	
+	LIMIT #{pagination.limitStart},#{recordSize};
+  </select>
+  <select id="count" parameterType="com.test.dev.page.dto.SearchDTO" resultType="int">
+  	SELECT
+  		COUNT(*)
+  	FROM
+  		BOARD
   </select>
   
   <select id="selectBoardDetail" parameterType="com.test.dev.board.dto.BoardDTO" resultType="com.test.dev.board.dto.BoardDTO">						
@@ -46,7 +58,11 @@
 	WHERE B.BOARD_NUM = #{bnum};
 	  	
   </select>
-    
+    <update id="readCnt">
+    	UPDATE BOARD 
+		SET BOARD_VIEWCNT = BOARD_VIEWCNT+1
+		WHERE BOARD_NUM = #{board_num};
+    </update>
 	<insert id="insertBoard" parameterType="com.test.dev.board.dto.BoardDTO" useGeneratedKeys="true" keyProperty="board_num">
 		
 		<selectKey resultType="string" keyProperty="board_num" order="BEFORE">

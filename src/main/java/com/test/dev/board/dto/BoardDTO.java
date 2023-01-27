@@ -1,9 +1,6 @@
 package com.test.dev.board.dto;
 
 import java.sql.Date;
-import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -23,6 +20,8 @@ public class BoardDTO {
     private Date board_date;				//게시물 날짜
     private String fileIdxs;				//파일
     private String delete_files;			//삭제할 파일리스트
+    private String board_file_cnt;			//파일리스트
+    
 }    
 
 	

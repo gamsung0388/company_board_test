@@ -14,6 +14,8 @@ import com.test.dev.board.dao.FileDAO;
 import com.test.dev.board.dto.BoardDTO;
 import com.test.dev.board.dto.CategoryDTO;
 import com.test.dev.page.controller.PageController;
+import com.test.dev.page.dto.Pagination;
+import com.test.dev.page.dto.SearchDTO;
 
 @Service
 public class BoardService {
@@ -24,18 +26,35 @@ public class BoardService {
 	private BoardDAO boardDAO;
 	@Autowired
 	private FileDAO fileDAO;
-	
+
 	//목록
-	public List<BoardDTO> selectBoard() throws Exception{
-		String bnum = null;
-		List<BoardDTO> list = boardDAO.selectBoard();
-		return list;
+	public Map<String, Object> selectBoard(SearchDTO params) throws Exception{
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		int count = boardDAO.count(params);
+		
+		Pagination pagination = new Pagination(count, params);
+		params.setPagination(pagination);
+		
+//		System.out.println("params: "+params);
+		
+		List<BoardDTO> list = boardDAO.selectBoard(params);
+		
+		map.put("list", list);
+		map.put("pagination", params.getPagination());		
+		
+		return map;
 	}
 	
 	//상세
 	public BoardDTO selectBoard(String bnum) throws Exception{
 		BoardDTO boardDetail = boardDAO.selectBoardDetail(bnum);
 		return boardDetail;
+	}
+	
+	public void readCnt(String bnum) throws Exception{
+		boardDAO.readCnt(bnum);
 	}
 	
 	//등록	

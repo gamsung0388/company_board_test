@@ -27,7 +27,7 @@ $(function(){
 			location.href = "/logout"
 		});
 		$("#memberUpdate").click(function(){
-			location.href = "/memberUpdate"
+			location.href = "/setting"
 		});
 	}
 		

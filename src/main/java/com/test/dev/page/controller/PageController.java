@@ -1,7 +1,8 @@
 package com.test.dev.page.controller;
 
-import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -9,34 +10,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.test.dev.board.dto.BoardDTO;
 import com.test.dev.board.service.BoardService;
 import com.test.dev.member.dto.MemberDTO;
 import com.test.dev.member.service.MemberService;
+import com.test.dev.page.dto.SearchDTO;
 
 @Controller
 public class PageController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PageController.class);
-	
-	@GetMapping("/")
-	public String main(){
-		return "/main/main";
-	}
-	
-	/**
-	 * 페이지 이동
-	 * @param pageId
-	 * @return
-	 */
-	@GetMapping("/pageGo")
-	public String pageGo(@RequestParam String pageId){
-		return "redirect:/board/"+pageId;
-	}
 	
 	@Autowired
 	private BoardService boardService;
@@ -44,14 +32,38 @@ public class PageController {
 	@Autowired
 	private MemberService memberService;
 	
+	@GetMapping("/")
+	public String main(HttpServletRequest request) throws Exception{
+		
+		HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "redirect:/loginpage";
+        }
+        
+        return "/main/main";
+	}
+	
+	/**
+	 * 페이지 이동
+	 * @param pageId
+	 * @return
+	 */
+	@CrossOrigin(origins = "http://localhost:8080") // 추가
+	@GetMapping("/pageGo")
+	public String pageGo(@RequestParam String pageId){
+		return "redirect:/board/"+pageId;
+	}
+	
 	//게시물페이지로
 	@GetMapping("/board/board")
-	public ModelAndView board(Model model)throws Exception{
+	public ModelAndView board(@ModelAttribute("params") SearchDTO params, Model model)throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
-		List<BoardDTO> boardList = boardService.selectBoard();
 		
-		mv.addObject("boardList",boardList);
+		Map<String, Object> map = boardService.selectBoard(params);
+		
+		mv.addObject("boardList",map.get("list"));
+		mv.addObject("pagination",map.get("pagination"));
 		mv.setViewName("/board/board");
 		
 		return mv;
@@ -74,7 +86,7 @@ public class PageController {
 		return "/board/travelApi";
 	}
 	
-	@GetMapping("/memberUpdate")
+	@GetMapping("/setting")
 	public ModelAndView memberUpdate(HttpSession session) throws Exception{
 		
 		ModelAndView mv = new ModelAndView(); 

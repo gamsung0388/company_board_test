@@ -9,4 +9,5 @@ public interface MemberDAO {
 	public int idOverChk(String userId) throws Exception;	
 	public void memberJoin(MemberDTO memberDTO) throws Exception;
 	public MemberDTO memberSelect(String userId);
+	public void memberUpdate(MemberDTO memberDTO) throws Exception;
 }

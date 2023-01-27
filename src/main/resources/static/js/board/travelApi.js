@@ -4,19 +4,22 @@
 $(function(){
 	
 	$("#busId").on("click",function(){
-		
-		var data = {
-			serviceKey: "HF9Hb7iX/TC5fegODcUsW1f4sSYXD16vxpwD0AcSkyXom1ZBZ75QIBBBU/CrYwXL0iTqOiGloRgnc+v+49/0xw==",
-			pageNo : "1",
-			numOfRows: "10",
-			parentCode: "PS01"
+		var param = {
+			ServiceKey: "HF9Hb7iX%2FTC5fegODcUsW1f4sSYXD16vxpwD0AcSkyXom1ZBZ75QIBBBU%2FCrYwXL0iTqOiGloRgnc%2Bv%2B49%2F0xw%3D%3D",
+			pageNo :1,
+			numOfRows:10,
+			dataType:"JSON",
+			code1:"N500",
+			code2:"ANL",
+			time:"20230126"
 		}
-		console.log("1111");
 		$.ajax({
-			url:'http://www.emuseum.go.kr/openapi/code',
+			url:'/api',
 			type:'GET',
-			data:data,
+			data:param,
+			contentType : "application/json",
 			success:function(data){
+				console.log("data:",data);
 			},
 			error:function(e){
 				

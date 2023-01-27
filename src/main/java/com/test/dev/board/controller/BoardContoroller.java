@@ -2,6 +2,7 @@ package com.test.dev.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -30,6 +31,8 @@ public class BoardContoroller {
 	public ModelAndView board(String bnum)throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
+		boardService.readCnt(bnum);
+		
 		BoardDTO boardDetail = boardService.selectBoard(bnum);
 		List<String> list = boardService.selectBoardFile(bnum);
 		
@@ -42,9 +45,15 @@ public class BoardContoroller {
 	
 	//등록 페이지 이동
 	@GetMapping("/board/insertpage")
-	public ModelAndView boardInsertpage()throws Exception{
+	public ModelAndView boardInsertpage(HttpServletRequest request)throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
+		
+		HttpSession session = request.getSession(false);
+        if (session == null) {
+        	mv.setViewName("redirect:/loginpage");
+            return mv;
+        }
 		
 		List<CategoryDTO> selectCt = boardService.selectCt();
 		

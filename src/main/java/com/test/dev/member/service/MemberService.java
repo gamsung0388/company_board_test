@@ -38,4 +38,11 @@ public class MemberService {
 		
 		return memberDTO;
 	}	
+	public String memberUpdate(MemberDTO memberDTO) throws Exception {
+		
+		memberDAO.memberUpdate(memberDTO);
+		
+		return "Y";
+	}
+
 }

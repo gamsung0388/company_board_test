@@ -21,8 +21,12 @@ public class loginController{
 	loginService loginService;
 	
 	@GetMapping("/loginpage")
-	public String loginpage(){
-      return "/login/login";
+	public String loginpage(HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		System.out.println("session: "+session);	
+		
+		return "/login/login";
     }
 	@GetMapping("memberJoinPage")
 	public String memberJoinpage() {
@@ -33,17 +37,19 @@ public class loginController{
 	public Map<String, Object> login(MemberDTO memberDTO,HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
-		
 		Map<String, Object> map = loginService.login(memberDTO, session);
 		
 		return map;
 	}
 	
 	@GetMapping("/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
 		
-		session.invalidate();
-		
+		 if (session != null) {
+            session.invalidate();
+        }
+		 
 		return "redirect:/loginpage";
 	}
 			

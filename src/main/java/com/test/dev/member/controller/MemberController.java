@@ -38,4 +38,18 @@ public class MemberController {
 		return joinYn;
 	}
 	
+	@ResponseBody
+	@PostMapping("/memberUpdate")
+	public String memberUpdate(MemberDTO memberDTO) throws Exception {
+		
+		System.out.println("memberDTO: "+memberDTO);
+		String UpdateYn = memberService.memberUpdate(memberDTO);
+		
+		if(UpdateYn!="Y") {
+			UpdateYn = "N";
+		}
+		
+		return UpdateYn;
+	}
+	
 }
