@@ -9,7 +9,7 @@
 <link href ="/webjars/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="shortcut icon" href="/static/img/favicon.ico">
 <link href="/static/css/common.css" rel="stylesheet">
-<script src="/static/js/login/memberjoin.js"></script>
+<script src="/static/js/member/memberjoin.js"></script>
 </head>
 <body>
 	<div>
