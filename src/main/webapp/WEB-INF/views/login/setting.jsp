@@ -14,7 +14,7 @@
 <body>
 	<jsp:include page="../menu.jsp" flush="false"></jsp:include>	
 	<div>
-		<p style="font-size: 25px">회원가입</p>
+		<p style="font-size: 25px">개인 정보 변경</p>
 		<div style="border: 3px solid gold">
 			<p>아이디:<input type="text" id="userId" value="${memberDTO.user_id}" readonly="readonly"></p>
 			<p>비밀번호:<input type="text" id="userPw" value="${memberDTO.user_pw}"></p>

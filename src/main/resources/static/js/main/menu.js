@@ -29,6 +29,9 @@ $(function(){
 		$("#memberUpdate").click(function(){
 			location.href = "/setting"
 		});
+		$("#memberManage").click(function(){
+			location.href = "/memberManage";
+		});
 	}
 		
 	pageGo();

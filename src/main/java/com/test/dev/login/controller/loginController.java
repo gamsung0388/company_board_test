@@ -28,10 +28,7 @@ public class loginController{
 		
 		return "/login/login";
     }
-	@GetMapping("memberJoinPage")
-	public String memberJoinpage() {
-		return "/login/memberjoin";
-	}
+	
 	@ResponseBody
 	@PostMapping("login")
 	public Map<String, Object> login(MemberDTO memberDTO,HttpServletRequest request) {

@@ -35,8 +35,6 @@ public class FileController {
 	
 	@Autowired FileService fileService;
 	
-	private static final Logger log = LoggerFactory.getLogger(PageController.class);
-	
 	@PostMapping("/file-upload")
 	@ResponseBody
 	public Map<String,Object> fileupload(

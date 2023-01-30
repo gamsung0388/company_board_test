@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.dev.page.controller.PageController;
 
-import antlr.collections.List;
 @Controller
 public class HttpConnection {
 	

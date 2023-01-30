@@ -40,6 +40,10 @@ $(function(){
 		}
 	});
 	
+	$("#cancleBtn").click(function(){
+		history.back();
+	});
+	
 	function memeberJoin(param){
 		console.log("param: "+JSON.stringify(param));
 		

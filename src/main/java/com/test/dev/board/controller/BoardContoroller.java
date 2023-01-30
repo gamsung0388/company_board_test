@@ -16,12 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.test.dev.board.dto.BoardDTO;
 import com.test.dev.board.dto.CategoryDTO;
 import com.test.dev.board.service.BoardService;
-import com.test.dev.page.controller.PageController;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class BoardContoroller {
-	
-	private static final Logger logger = LoggerFactory.getLogger(PageController.class);
 	
 	@Autowired
 	private BoardService boardService;
@@ -30,7 +30,10 @@ public class BoardContoroller {
 	@GetMapping("/board/detail")
 	public ModelAndView board(String bnum)throws Exception{
 		
+		log.info("게시물 상세");
+		
 		ModelAndView mv = new ModelAndView();
+		
 		boardService.readCnt(bnum);
 		
 		BoardDTO boardDetail = boardService.selectBoard(bnum);
@@ -46,6 +49,8 @@ public class BoardContoroller {
 	//등록 페이지 이동
 	@GetMapping("/board/insertpage")
 	public ModelAndView boardInsertpage(HttpServletRequest request)throws Exception{
+		
+		log.info("게시물 등록 페이지 이동");
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -68,6 +73,8 @@ public class BoardContoroller {
 	@GetMapping("/board/updatepage")
 	public ModelAndView boardUpdatepage(String bnum)throws Exception{
 		
+		log.info("게시물 수정 페이지 이동");
+		
 		ModelAndView mv = new ModelAndView();
 
 		BoardDTO boardDetail = boardService.selectBoard(bnum);
@@ -88,9 +95,10 @@ public class BoardContoroller {
 	@GetMapping("/board/insert")
 	public String boardInsert(BoardDTO boardDTO,HttpSession session)throws Exception{
 		
+		log.info("게시물 등록");
+		
 		boardDTO.setUser_id((String)session.getAttribute("userid"));
 		String successYN = boardService.insertBoard(boardDTO);
-		logger.info("insertBoard:" + boardDTO.toString());
 		
 		if(!boardDTO.getFileIdxs().isEmpty()) {
 			boardService.insertBoardFile(boardDTO);
@@ -102,24 +110,26 @@ public class BoardContoroller {
 	@ResponseBody
 	@GetMapping("/board/update")
 	public String boardUpdate(BoardDTO baordDTO)throws Exception{
-		String successYN = boardService.boardUpdate(baordDTO);
-		logger.info("boardUpdate1: " + baordDTO.toString());
 		
+		log.info("게시물 수정");
+		
+		String successYN = boardService.boardUpdate(baordDTO);
 		if(!baordDTO.getFileIdxs().isEmpty()) {
-			logger.info("boardUpdate2: " + baordDTO.getFileIdxs());
+			log.info("boardUpdate2: " + baordDTO.getFileIdxs());
 			boardService.insertBoardFile(baordDTO);	
 		}
-		
 		if(baordDTO.getDelete_files()!=null) {
 			boardService.deleteBoardFile(baordDTO.getDelete_files());
 		}
-		
 		return successYN;
 	}
 	
 	//게시물삭제
 	@GetMapping("/board/delete")
 	public String boardDelete(String bnum)throws Exception{
+		
+		log.info("게시물 삭제");
+		
 		boardService.boardDelete(bnum);
 		return "redirect:/board/board";
 	}

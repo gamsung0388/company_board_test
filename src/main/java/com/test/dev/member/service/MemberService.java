@@ -1,5 +1,7 @@
 package com.test.dev.member.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +34,19 @@ public class MemberService {
 		return "Y";
 	}
 	
-	public MemberDTO memberSelect(String userId) throws Exception{
+	public MemberDTO memberOne(String userId) throws Exception{
 	
-		MemberDTO memberDTO = memberDAO.memberSelect(userId);
+		MemberDTO memberDTO = memberDAO.memberOne(userId);
 		
 		return memberDTO;
-	}	
+	}
+	public List<MemberDTO> memberSelect(String userId) throws Exception{
+		
+		List<MemberDTO> memberDTO = memberDAO.memberSelect(userId);
+		
+		return memberDTO;
+	}
+	
 	public String memberUpdate(MemberDTO memberDTO) throws Exception {
 		
 		memberDAO.memberUpdate(memberDTO);
