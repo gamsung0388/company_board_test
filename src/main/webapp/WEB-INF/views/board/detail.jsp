@@ -17,11 +17,9 @@
 <script>
 </script>
 <body>
-	<header>
-		<a id="backPage" href="javascript:void(0);"><img src="/static/img/back.png" width="30px"></a>
-	</header>
+	<jsp:include page="../menu.jsp" flush="false"></jsp:include>	
 	<div>
-		<table border="1">
+		<table border="1" >
 			<tr>
 				<th>번호</th>
 				<td><c:out value="${boardDetail.board_num}"></c:out></td>
@@ -57,7 +55,23 @@
 			<button id="boardDelete" value="${boardDetail.board_num}">삭제</button>
 		</div>
 		<div>
-			
+			<input type="text" id="comment_add_value"><button id="comment_add">등록</button>
+			<input type="hidden" id="bnum" value="${boardDetail.board_num}">
+			<div id="comment_html">
+				<c:if test="${commentList!=null}">
+					<c:forEach items="${commentList}" var="commentData">
+						<div id ="comment" style="border:2px solid; padding:10px" data-commentnum="${commentData.coment_num}">
+							<b>${commentData.user_name}</b>
+							<button class = "comment_delete" >삭제</button>
+							<button class = "comment_answer">답글</button>
+							<div>
+								${commentData.comment_txt}
+							</div>
+						</div>
+						
+					</c:forEach>
+				</c:if>
+			</div>
 		</div>
 	</div>
 </body>

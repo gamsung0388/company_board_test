@@ -35,6 +35,8 @@ public class loginService{
 		}else {
 			msg+= "로그인이 성공했습니다.";
 			session.setAttribute("userid", md.getUser_id());
+			session.setAttribute("grade", md.getGrade());
+			
 			code = "Y";
 		}
 		

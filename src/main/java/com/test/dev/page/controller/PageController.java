@@ -43,9 +43,6 @@ public class PageController {
 		
 		HttpSession session = request.getSession(false);
         
-		System.out.println(session);
-		System.out.println(request.isRequestedSessionIdValid());
-		
 		if (session == null || !request.isRequestedSessionIdValid()) {
             return "redirect:/loginpage";
         }

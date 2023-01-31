@@ -33,7 +33,7 @@
 					<td><a href="/memberSetting?userId=${memberData.user_id}">${memberData.user_name}</a></td>
 					<td>${memberData.user_age}</td>
 					<td>${memberData.board_cnt}</td>
-					<td>0</td>
+					<td>${memberData.comment_cnt}</td>
 					<td>${memberData.grade}</td>
 				</tr>
 			</c:forEach>

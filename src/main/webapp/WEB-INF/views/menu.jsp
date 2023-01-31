@@ -10,6 +10,11 @@
 <link rel="shortcut icon" href="/static/img/favicon.ico">
 <link href="/static/css/common.css" rel="stylesheet">
 <script src="/static/js/main/menu.js"></script>
+<%
+
+String grade = (String)session.getAttribute("grade");
+
+%>
 </head>
 <body>
 
@@ -26,7 +31,9 @@
 				<li class="menu_lit"><a id="api" href="javascript:void(0);">api</a></li>
 				<li class="menu_lit"><a id="logout" href="javascript:void(0);">로그아웃</a></li>
 				<li class="menu_lit"><a id="memberUpdate" href="javascript:void(0);">개인수정</a></li>
-				<li class="menu_lit"><a id="memberManage" href="javascript:void(0);">회원관리</a></li>
+				<c:if test="${grade=='M'}">
+					<li class="menu_lit"><a id="memberManage" href="javascript:void(0);">회원관리</a></li>
+				</c:if>
 <!-- 				<li class="menu_lit"><a href=""></a></li> -->
 			</ul>
 		</div>

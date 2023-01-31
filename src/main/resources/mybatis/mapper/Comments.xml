@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.dev.comments.dao.CommentDAO">
+	<insert id="commentAdd" parameterType="com.test.dev.comments.dto.CommentDTO">
+		INSERT INTO COMMENTS(
+			COMMENT_USER_ID,
+			COMMENT_TXT, 
+		    BOARD_NUM, 
+		    COMMENT_CLASS, 
+		    COMMENT_ORDER, 
+		    GROUP_NUM
+		    ) 
+		VALUE(
+			#{comment_user_id},
+			#{comment_txt},
+		    #{board_num},
+		    0,
+		    0,
+		    #{board_num}
+		);
+	</insert>
+	<select id="commentSelect" resultType="com.test.dev.comments.dto.CommentDTO">
+		
+		SELECT 
+			C.COMENT_NUM,
+			C.COMMENT_USER_ID,
+		    M.USER_NAME,
+			C.COMMENT_TXT, 
+		    C.BOARD_NUM, 
+		    C.COMMENT_CLASS, 
+		    C.COMMENT_ORDER, 
+		    C.GROUP_NUM
+		FROM COMMENTS C
+		LEFT JOIN MEMBERS M ON M.USER_ID = C.COMMENT_USER_ID
+		WHERE C.BOARD_NUM = #{board_num}
+		
+	</select>
+	<delete id="commentDelete">
+		DELETE FROM COMMENTS
+		WHERE COMENT_NUM = #{comment_num}
+		;
+	</delete>
+	<delete id="commentBoardDelete">
+		DELETE FROM COMMENTS
+		WHERE BOARD_NUM = #{board_num}
+		;
+	</delete>
+</mapper>
