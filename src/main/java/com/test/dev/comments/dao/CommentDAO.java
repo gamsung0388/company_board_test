@@ -12,4 +12,5 @@ public interface CommentDAO{
 	public List<CommentDTO> commentSelect(int bnum) throws Exception;
 	public void commentDelete(int comment_num) throws Exception;
 	public void commentBoardDelete(int bnum) throws Exception;
+	public void answerAdd(CommentDTO commentDTO) throws Exception;
 }

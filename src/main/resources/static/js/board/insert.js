@@ -162,8 +162,8 @@ $(function(){
 				url: "/board/insert",
 				data: insertdata,
 				success: function(data){
-					console.log("data: "+data);
-					if(data=='Y'){
+					console.log("data: ",data);
+					if(data.successYN=='Y'){
 						location.href="/board/board"	
 					}
 				
@@ -203,7 +203,7 @@ $(function(){
 				data: insertdata,
 				success: function(data){
 					console.log("data: "+data);
-					if(data=='Y'){
+					if(data.successYN=='Y'){
 						location.href="/board/board"	
 					}
 				

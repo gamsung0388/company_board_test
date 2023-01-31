@@ -94,8 +94,10 @@ public class CommentController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/comment_select")
-	public Map<String, Object> comment_select(CommentDTO commentDTO,HttpServletRequest request){
+	@GetMapping("/answer_add")
+	public Map<String, Object> answer_add(CommentDTO commentDTO,HttpServletRequest request){
+		
+		log.info("commentDTO:",commentDTO);
 		
 		String successYN = "";
 		Map<String, Object> map = new HashMap<>();
@@ -109,7 +111,12 @@ public class CommentController {
         	
             return map;
         }
+        
+        String userId = (String)session.getAttribute("userid");
+		commentDTO.setComment_user_id(userId);
 		
+        commentService.answerAdd(commentDTO);
+        
         int bnum = commentDTO.getBoard_num();
         List<CommentDTO> list = commentService.commentSelect(bnum);
         

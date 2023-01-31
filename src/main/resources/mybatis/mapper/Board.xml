@@ -65,11 +65,12 @@
 	<insert id="insertBoard" parameterType="com.test.dev.board.dto.BoardDTO" useGeneratedKeys="true" keyProperty="board_num">
 		
 		<selectKey resultType="string" keyProperty="board_num" order="BEFORE">
-	        SELECT MAX(BOARD_NUM)+1 FROM BOARD        
+	        SELECT IFNULL(MAX(BOARD_NUM+1),1) FROM BOARD        
 	    </selectKey>   
 		
 		INSERT INTO 
 		BOARD(
+			BOARD_NUM,
 			BOARD_CGY_NUM, 
 			USER_ID, 
 			BOARD_TITLE, 
@@ -79,6 +80,7 @@
 			BOARD_VIEWCNT
 		)
 		VALUES(
+			${board_num},
 	        #{board_cgy_num},
 	        #{user_id},
 	        #{board_title},

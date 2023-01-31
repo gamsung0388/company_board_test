@@ -60,15 +60,18 @@
 			<div id="comment_html">
 				<c:if test="${commentList!=null}">
 					<c:forEach items="${commentList}" var="commentData">
-						<div id ="comment" style="border:2px solid; padding:10px" data-commentnum="${commentData.coment_num}">
+						${commentData}
+						<div class ="comment" style="border:2px solid; padding:10px" data-commentnum="${commentData.coment_num}">
 							<b>${commentData.user_name}</b>
-							<button class = "comment_delete" >삭제</button>
-							<button class = "comment_answer">답글</button>
+							<button class = "comment_delete">삭제</button>
+							<button class = "comment_answer_div">답글</button>
 							<div>
 								${commentData.comment_txt}
 							</div>
+							<div class="coment_reply">
+							
+							</div>
 						</div>
-						
 					</c:forEach>
 				</c:if>
 			</div>
