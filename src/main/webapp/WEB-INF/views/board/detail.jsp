@@ -61,16 +61,24 @@
 				<c:if test="${commentList!=null}">
 					<c:forEach items="${commentList}" var="commentData">
 						${commentData}
-						<div class ="comment" style="border:2px solid; padding:10px" data-commentnum="${commentData.coment_num}">
+						<div class ="comment" style="border:2px solid; padding:10px" data-commentnum="${commentData.coment_num}" data-commentclass = "${commentData.comment_class}" data-commentorder = "${commentData.comment_order}">
 							<b>${commentData.user_name}</b>
 							<button class = "comment_delete">삭제</button>
 							<button class = "comment_answer_div">답글</button>
 							<div>
 								${commentData.comment_txt}
-							</div>
-							<div class="coment_reply">
-							
-							</div>
+							</div>							
+							<c:forEach items="${commentData.answerList}" var="answerData">
+								<div data-commentnum="${answerData.coment_num}" data-commentclass = "${answerData.comment_class}" data-commentorder = "${answerData.comment_order}">
+									<img src="/static/img/turn.png" style="width: 20px;">
+									<b>${answerData.user_name}</b>
+									<button class = "comment_delete">삭제</button>
+									<button class = "comment_answer_div">답글</button>
+									<div>
+										${answerData.comment_txt}
+									</div>
+								</div>
+							</c:forEach>
 						</div>
 					</c:forEach>
 				</c:if>

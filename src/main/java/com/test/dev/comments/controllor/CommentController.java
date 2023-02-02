@@ -25,6 +25,76 @@ public class CommentController {
 	@Autowired
 	public CommentService commentService;
 	
+	//댓글 목록
+	@ResponseBody
+	@GetMapping("/comment_select")
+	public Map<String, Object> comment_select(CommentDTO commentDTO,HttpServletRequest request){
+		
+		
+		String successYN = "";
+		Map<String, Object> map = new HashMap<>();
+		
+		HttpSession session = request.getSession(false);
+        if (session == null || !request.isRequestedSessionIdValid()) {
+        	successYN = "L";
+        	map.put("successYN", successYN);
+        	map.put("url", "/loginpage");
+        	return map;
+        }
+        		
+        List<CommentDTO> list = commentService.commentSelect(commentDTO.getBoard_num());	
+        successYN = "Y";
+		map.put("successYN",successYN);
+		map.put("commentList", list);
+        
+		return map;
+	}
+	
+	//댓글 등록
+	@ResponseBody
+	@GetMapping("/comment_add")
+	public Map<String, Object> comment_add(CommentDTO commentDTO,HttpServletRequest request) {
+		
+		String successYN = "";
+		Map<String, Object> map = new HashMap<>();
+		
+		HttpSession session = request.getSession(false);
+        if (session == null || !request.isRequestedSessionIdValid()) {
+        	successYN = "L";
+        	map.put("successYN", successYN);
+        	map.put("url", "/loginpage");
+        	return map;
+        }
+		
+		successYN = commentService.comment_add(commentDTO,session);		
+		map.put("successYN",successYN);
+				
+		return map;
+	}
+	
+	//답글 등록
+	@ResponseBody
+	@GetMapping("/answer_add")
+	public Map<String, Object> answer_add(CommentDTO commentDTO,HttpServletRequest request){
+		String successYN = "";
+		Map<String, Object> map = new HashMap<>();
+		
+		HttpSession session = request.getSession(false);
+        if (session == null || !request.isRequestedSessionIdValid()) {
+        	successYN = "L";
+        	map.put("successYN", successYN);
+        	map.put("url", "/loginpage");
+        	return map;
+        }
+		
+        successYN = commentService.answer_add(commentDTO,session);		
+		map.put("successYN",successYN);
+				
+		return map;
+        
+	}
+	
+	//댓글 삭제
 	@ResponseBody
 	@GetMapping("/commentDelete")
 	public Map<String, Object> commentDelete(CommentDTO commentDTO, HttpServletRequest request){
@@ -36,94 +106,20 @@ public class CommentController {
 		
 		HttpSession session = request.getSession(false);
         if (session == null || !request.isRequestedSessionIdValid()) {
-        	successYN = "L";
-        	
+        	successYN = "L";        	
         	map.put("successYN", successYN);
         	map.put("url", "/loginpage");
-        	
             return map;
         }
-        int comment_num = commentDTO.getComent_num();
-        log.info("comment_num: ",comment_num);
         
-        successYN = commentService.commentDelete(comment_num);
-        
-        int bnum = commentDTO.getBoard_num();
-		List<CommentDTO> list = commentService.commentSelect(bnum);
-        
-		map.put("successYN", successYN);
-		map.put("commentList",list);
-		
-		System.out.println("map:" +map);
+        int coment_num = commentDTO.getComent_num();
+        successYN = commentService.commentDelete(coment_num);
+        map.put("successYN", successYN);
 		
 		return map;
 	}
 	
-	@ResponseBody
-	@GetMapping("/comment_add")
-	public Map<String, Object> comment_add(CommentDTO commentDTO,HttpServletRequest request) {
-		
-		String successYN = "";
-		Map<String, Object> map = new HashMap<>();
-		
-		HttpSession session = request.getSession(false);
-        if (session == null || !request.isRequestedSessionIdValid()) {
-        	successYN = "L";
-        	
-        	map.put("successYN", successYN);
-        	map.put("url", "/loginpage");
-        	
-            return map;
-        }
-		
-		String userId = (String)session.getAttribute("userid");
-		commentDTO.setComment_user_id(userId);
-		
-		commentService.comment_add(commentDTO);		
-		
-		int bnum = commentDTO.getBoard_num();
-		List<CommentDTO> list = commentService.commentSelect(bnum);
-		
-		successYN = "Y";
-		map.put("successYN",successYN);
-		map.put("commentList",list);
-		
-		System.out.println("map:" +map);
-		
-		return map;
-	}
 	
-	@ResponseBody
-	@GetMapping("/answer_add")
-	public Map<String, Object> answer_add(CommentDTO commentDTO,HttpServletRequest request){
-		
-		log.info("commentDTO:",commentDTO);
-		
-		String successYN = "";
-		Map<String, Object> map = new HashMap<>();
-		
-		HttpSession session = request.getSession(false);
-        if (session == null || !request.isRequestedSessionIdValid()) {
-        	successYN = "L";
-        	
-        	map.put("successYN", successYN);
-        	map.put("url", "/loginpage");
-        	
-            return map;
-        }
-        
-        String userId = (String)session.getAttribute("userid");
-		commentDTO.setComment_user_id(userId);
-		
-        commentService.answerAdd(commentDTO);
-        
-        int bnum = commentDTO.getBoard_num();
-        List<CommentDTO> list = commentService.commentSelect(bnum);
-        
-        map.put("commentList",list);
-        map.put("successYN",successYN);
-        
-		return map;
-		
-	}
+	
+
 }

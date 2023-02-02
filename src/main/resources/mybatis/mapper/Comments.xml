@@ -3,10 +3,10 @@
 <mapper namespace="com.test.dev.comments.dao.CommentDAO">
 	<insert id="commentAdd" parameterType="com.test.dev.comments.dto.CommentDTO">
 		<selectKey resultType="int" keyProperty="coment_num" order="BEFORE">
-	        SELECT IFNULL(MAX(coment_num+1),1) FROM COMMENTS        
+	        SELECT 
+	        	IFNULL(MAX(COMENT_NUM+1),1)
+	        FROM COMMENTS        
 	    </selectKey>
-	
-	
 		INSERT INTO COMMENTS(
 			COMENT_NUM,
 			COMMENT_USER_ID,
@@ -28,7 +28,9 @@
 	</insert>
 	<insert id="answerAdd" parameterType="com.test.dev.comments.dto.CommentDTO">
 		<selectKey resultType="int" keyProperty="coment_num" order="BEFORE">
-	        SELECT IFNULL(MAX(coment_num+1),1) FROM COMMENTS        
+	        SELECT 
+	        	IFNULL(MAX(COMENT_NUM+1),1)
+	        FROM COMMENTS        
 	    </selectKey>
 		INSERT INTO COMMENTS(
 			COMENT_NUM,
@@ -36,7 +38,7 @@
 			COMMENT_TXT, 
 		    BOARD_NUM, 
 		    COMMENT_CLASS, 
-		    COMMENT_ORDER, 
+		    COMMENT_ORDER,
 		    GROUP_NUM
 		    ) 
 		VALUE(
@@ -49,8 +51,21 @@
 		    #{group_num}
 		);
 	</insert>
-	<select id="commentSelect" resultType="com.test.dev.comments.dto.CommentDTO">
+	<select id="comment_order_select" parameterType="com.test.dev.comments.dto.CommentDTO" resultType="int">
+		SELECT 
+			IFNULL(MAX(COMMENT_ORDER),0) AS COMENT_ORDER
+		FROM COMMENTS
+		WHERE BOARD_NUM = #{board_num}
+		AND GROUP_NUM= #{group_num}
 		
+	</select>
+	<update id="comment_order_update" parameterType="com.test.dev.comments.dto.CommentDTO">
+		UPDATE COMMENTS 
+		SET COMMENT_ORDER = COMMENT_ORDER+1
+		WHERE COMMENT_ORDER > #{comment_order}
+		AND GROUP_NUM = #{group_num};
+	</update>
+	<select id="commentSelect" parameterType="com.test.dev.comments.dto.CommentDTO" resultType="com.test.dev.comments.dto.CommentDTO">
 		SELECT 
 			C.COMENT_NUM,
 			C.COMMENT_USER_ID,
@@ -63,11 +78,30 @@
 		FROM COMMENTS C
 		LEFT JOIN MEMBERS M ON M.USER_ID = C.COMMENT_USER_ID
 		WHERE C.BOARD_NUM = #{board_num}
-		
+		AND C.COMMENT_CLASS = 0
+		ORDER BY C.COMMENT_ORDER
 	</select>
+	<select id="answerSelect" parameterType="com.test.dev.comments.dto.CommentDTO" resultType="com.test.dev.comments.dto.CommentDTO">
+		SELECT 
+			C.COMENT_NUM,
+			C.COMMENT_USER_ID,
+		    M.USER_NAME,
+			C.COMMENT_TXT, 
+		    C.BOARD_NUM, 
+		    C.COMMENT_CLASS, 
+		    C.COMMENT_ORDER, 
+		    C.GROUP_NUM
+		FROM COMMENTS C
+		LEFT JOIN MEMBERS M ON M.USER_ID = C.COMMENT_USER_ID
+		WHERE C.BOARD_NUM = #{board_num}
+		AND C.GROUP_NUM = #{coment_num}
+		AND C.COMMENT_CLASS != 0
+		ORDER BY C.COMMENT_ORDER
+	</select>
+		
 	<delete id="commentDelete">
 		DELETE FROM COMMENTS
-		WHERE COMENT_NUM = #{comment_num}
+		WHERE COMENT_NUM = #{coment_num}
 		;
 	</delete>
 	<delete id="commentBoardDelete">

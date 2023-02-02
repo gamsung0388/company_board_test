@@ -1,5 +1,7 @@
 package com.test.dev.comments.dto;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -12,4 +14,5 @@ public class CommentDTO {
 	int comment_class;
 	int comment_order;
 	int group_num;
+	List<CommentDTO> answerList;
 }
