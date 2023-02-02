@@ -16,13 +16,17 @@ $(function(){
 	$(document).on("click",".pagecnt",function(){
 		
 		var cnt = $(this).data("cnt");
+		var searchType = $("#searchType").val();
+		var searchtxt = $("#searchtxt").val();
 		
 		var param = {
 			page : cnt,
 			recordSize : 10,
-			pageSize : 5
+			pageSize : 5,
+			keyword : searchtxt,
+			searchType : searchType
 		}
-		
+		searchPage()
 		location.href = "/board/board?"+new URLSearchParams(param);
 						
 	});
@@ -38,4 +42,25 @@ $(function(){
 		}
 		location.href = "/board/board?"+new URLSearchParams(params);
 	});	
+	
+	
+	function searchPage(param){
+		$.ajax({
+			type:"GET",
+			url:"/board/select",
+			data: param,
+			success: function(data){
+				
+				var _data = data || {};
+				console.log("data: ",_data);
+				
+			},
+			error: function(){
+				
+			}
+			
+		})
+	}
+	
+	
 })

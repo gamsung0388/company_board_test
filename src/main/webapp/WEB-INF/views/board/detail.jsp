@@ -50,7 +50,6 @@
 			</c:forEach>			
 		</table>
 		<div>
-			
 			<button id="boardUpdate" value="${boardDetail.board_num}">수정</button>
 			<button id="boardDelete" value="${boardDetail.board_num}">삭제</button>
 		</div>
@@ -60,7 +59,7 @@
 			<div id="comment_html">
 				<c:if test="${commentList!=null}">
 					<c:forEach items="${commentList}" var="commentData">
-						${commentData}
+<%-- 						${commentData} --%>
 						<div class ="comment" style="border:2px solid; padding:10px" data-commentnum="${commentData.coment_num}" data-commentclass = "${commentData.comment_class}" data-commentorder = "${commentData.comment_order}">
 							<b>${commentData.user_name}</b>
 							<button class = "comment_delete">삭제</button>

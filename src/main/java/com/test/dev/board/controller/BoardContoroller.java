@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,6 +21,7 @@ import com.test.dev.board.dto.CategoryDTO;
 import com.test.dev.board.service.BoardService;
 import com.test.dev.comments.dto.CommentDTO;
 import com.test.dev.comments.service.CommentService;
+import com.test.dev.page.dto.SearchDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +34,43 @@ public class BoardContoroller {
 	
 	@Autowired
 	private CommentService commentService;
+	
+	
+	/**
+	 * @text 내일 와서 search 마무리 해야됨
+	 * 
+	 * 
+	 * */
+	
+	//게시물 목록
+	@GetMapping("/board/select")
+	public Map<String, Object> boardSelect(HttpServletRequest request,@ModelAttribute("params") SearchDTO params) throws Exception{
+		
+		log.info("게시물 목록");
+		
+		Map<String, Object> map = new HashMap<>();
+		HttpSession session = request.getSession(false);
+		String successYN = "";
+		
+		if (session == null || !request.isRequestedSessionIdValid()) {
+			
+			successYN = "L";
+        	map.put("successYN", successYN);
+			map.put("url","redirect:/loginpage");
+			
+            return map;
+        }		
+		
+		Map<String, Object> smap = boardService.selectBoard(params);
+		
+		successYN = "Y";
+		
+		map.put("successYN",successYN);
+		map.put("boardList",smap.get("list"));
+		map.put("pagination",smap.get("pagination"));
+		
+		return map;
+	}
 	
 	//게시물 상세로
 	@GetMapping("/board/detail")

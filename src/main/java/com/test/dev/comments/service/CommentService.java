@@ -41,9 +41,9 @@ public class CommentService {
 				alist = commentDAO.answerSelect(cdata);
 				
 					for(int j=0;j<alist.size();j++) {
-						CommentDTO adata = alist.get(i);
+						CommentDTO adata = alist.get(j);
 						
-						System.out.println("cdata: "+adata);
+						System.out.println("aadata: "+adata);
 						aalist = commentDAO.answerSelect(adata);						
 						
 						cdata.setAnswerList(aalist);						

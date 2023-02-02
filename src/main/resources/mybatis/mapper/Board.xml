@@ -22,7 +22,7 @@
     LEFT JOIN MEMBERS M on B.USER_ID = M.USER_ID
 	ORDER BY BOARD_NUM DESC
 <!-- 	<if test="searchType.equals('title')"> -->
-<!-- 		title like CONCAT('%',#{keyword},'%') -->
+<!-- 		BOARD_TITLE like CONCAT('%',#{keyword},'%') -->
 	
 <!-- 		AND BOARD_TITLE LIKE CONCAT('%',#{keyword},'%') -->
 <!--     </if> -->

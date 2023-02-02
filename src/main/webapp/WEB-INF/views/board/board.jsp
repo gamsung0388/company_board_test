@@ -43,7 +43,8 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<div>
+		
+		<div align="center">
 			<c:if test="${pagination.existPrevPage==true}">
 				<a class="pagecnt" data-cnt="${pagination.startPage-1}" href="javascript:void(0);">이전</a>
 			</c:if>
@@ -55,9 +56,19 @@
 			<c:if test="${pagination.existNextPage==true}">
 				<a class="pagecnt" data-cnt="${pagination.endPage+1}" href="javascript:void(0);">다음</a>
 			</c:if>
-			
 		</div>		
-		<button id="boardInsert">등록</button>
+		
+		<div align="center">
+			<select id="searchType">
+				<option value="username">글쓴이</option>
+				<option value="title">제목</option>
+			</select>
+			<input type="text" id="searchtxt" value=""><button>검색</button>
+		</div>
+		<div align="right">
+			<button id="boardInsert">등록</button>
+		</div>
+		
 	</div>
 </body>
 </html>

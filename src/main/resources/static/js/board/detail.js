@@ -170,6 +170,7 @@ $(function(){
 							 	+ '	</div>';
 							 
 							 $.each(data.answerList,function(j,adata){
+								 console.log("adata: ",adata);
 								 html 	+='<div data-commentnum="'+adata.coment_num+'" data-commentnum="'+adata.coment_num+'" data-commentclass = "'+adata.comment_class+'" data-commentorder = "'+adata.comment_order+'">'
 								 		+ '	<img src="/static/img/turn.png" style="width: 20px;">'
 										+ '	<b>'+adata.user_name+'</b>'
