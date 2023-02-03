@@ -8,7 +8,7 @@
 <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
 <link href ="/webjars/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="shortcut icon" href="/static/img/favicon.ico">
-<link href="/static/css/common.css" rel="stylesheet">
+<link href="/static/css/commonui.css" rel="stylesheet">
 <script src="/static/js/board/detail.js"></script>
 <%
 	
@@ -17,43 +17,29 @@
 <script>
 </script>
 <body>
-	<jsp:include page="../menu.jsp" flush="false"></jsp:include>	
-	<div>
-		<table border="1" >
-			<tr>
-				<th>번호</th>
-				<td><c:out value="${boardDetail.board_num}"></c:out></td>
-				<th>제목</th>
-				<td><c:out value="${boardDetail.board_title}"></c:out></td>
-				<th>게시자</th>
-				<td><c:out value="${boardDetail.user_name}"></c:out></td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<td colspan="5"><c:out value="${boardDetail.board_txt}"></c:out></td>			
-			</tr>
-			<tr>
-				<th>태그</th>	
-				<td colspan="5"><c:out value="${boardDetail.board_tag}"></c:out></td>		
-			</tr>
-			<tr>
-				<th>날짜</th>	
-				<td colspan="5"><c:out value="${boardDetail.board_date}"></c:out></td>
-			</tr>
-			<c:forEach var="fileList" items="${boardFilelist}"> 
-				<tr>
-					<td colspan="6">
-						<c:out value="${fileList.ORIG_NM}"></c:out>
-						<a href="/file-download/${fileList.FILE_ID}"><img src="/static/img/download.png" style="width:20px; height:auto; vertical-align: middle; cursor: pointer;"/></a>
-					</td>
-				</tr>
-			</c:forEach>			
-		</table>
-		<div>
-			<button id="boardUpdate" value="${boardDetail.board_num}">수정</button>
-			<button id="boardDelete" value="${boardDetail.board_num}">삭제</button>
-		</div>
-		<div>
+	
+	<article>
+		<div class="container" role="main">
+			<jsp:include page="../menu.jsp" flush="false"></jsp:include>	
+			<div class="bg_white rounded shadow-sm">
+				<div class="board_title"><c:out value="${boardDetail.board_title}"/></div>
+				<div class="board_info_box">
+					<span class="board_author">
+						<c:out value="${boardDetail.board_num}"/>
+						<c:out value="${boardDetail.user_name}"/>
+						<c:out value="${boardDetail.board_date}"/>
+					</span>
+				</div>
+				<div class="board_content"><c:out value="${boardDetail.board_txt}"/></div>
+				<div class="board_tag">TAG : <c:out value="${boardDetail.board_tag}"/></div>
+				
+				<div style="margin-top:20px">
+					<button id="boardUpdate" class="btn btn-sm btn-primary" value="${boardDetail.board_num}">수정</button>
+					<button id="boardDelete" class="btn btn-sm btn-primary" value="${boardDetail.board_num}">삭제</button>
+				</div>
+			</div>	
+		</div>	
+		<div align="center">
 			<input type="text" id="comment_add_value"><button id="comment_add">등록</button>
 			<input type="hidden" id="bnum" value="${boardDetail.board_num}">
 			<div id="comment_html">
@@ -83,6 +69,6 @@
 				</c:if>
 			</div>
 		</div>
-	</div>
+	</article>	
 </body>
 </html>

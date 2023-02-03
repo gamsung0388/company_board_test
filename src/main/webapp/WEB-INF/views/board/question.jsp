@@ -14,7 +14,36 @@
 <body>
 	<div>
 		<jsp:include page="../menu.jsp" flush="false"></jsp:include>	
-	
+		<table class="table table-boarderless">
+			<thead>
+				<tr>
+					<th><input type="checkbox" id="allChk"></th>
+					<th scope="col">번호</th>
+					<th scope="col">카테고리</th>
+					<th scope="col">제목</th>
+					<th scope="col">글쓴이</th>
+					<th scope="col">조회수</th>
+					<th scope="col">날짜</th>
+				</tr>
+			</thead>
+			<tbody id="boardHtml">
+			</tbody>
+		</table>
+		<div id="pageHtml" align="center">
+			
+		</div>		
+		
+		<div align="center">
+			<select id="searchType">
+				<option value="username">글쓴이</option>
+				<option value="title">제목</option>
+			</select>
+			<input type="text" id="searchtxt" value=""><button id="searchBtn">검색</button>
+		</div>
+		<div align="right">
+			<button id="boardInsert">등록</button>
+			<button id="boardDelete">삭제</button>
+		</div>	
 	</div>
 </body>
 </html>

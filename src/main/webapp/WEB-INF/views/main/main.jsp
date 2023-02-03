@@ -13,5 +13,6 @@
 </head>
 <body>
 	<jsp:include page="../menu.jsp" flush="false"></jsp:include>	
+	<img src="/static/img/favicon.ico">
 </body>
 </html>	
