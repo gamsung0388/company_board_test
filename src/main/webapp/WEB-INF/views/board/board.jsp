@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>게시판</title>
 <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+<script src="/static/js/jquery-ui.min.js"></script>
+<link href= "stylesheet" href="/static/css/jquery-ui.css" type="text/css">
 <link href ="/webjars/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="shortcut icon" href="/static/img/favicon.ico">
 <link href="/static/css/common.css" rel="stylesheet">
@@ -26,7 +28,9 @@
 					<th scope="col">제목</th>
 					<th scope="col">글쓴이</th>
 					<th scope="col">조회수</th>
-					<th scope="col">날짜</th>
+					<th scope="col">
+						날짜 <img id="calendar" style="width: 20px" src="/static/img/calendar.png">
+					</th>
 				</tr>
 			</thead>
 			<tbody id="boardHtml">

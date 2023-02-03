@@ -17,10 +17,10 @@
 <script>
 </script>
 <body>
-	
+	<jsp:include page="../menu.jsp" flush="false"></jsp:include>	
 	<article>
 		<div class="container" role="main">
-			<jsp:include page="../menu.jsp" flush="false"></jsp:include>	
+			
 			<div class="bg_white rounded shadow-sm">
 				<div class="board_title"><c:out value="${boardDetail.board_title}"/></div>
 				<div class="board_info_box">
