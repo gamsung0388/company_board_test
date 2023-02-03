@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class Pagination {
 
+	private int page;				//현재 페이지
 	private int totalRecordCount;	//전체 데이터 수
 	private int totalPageCount;		//전체 페이지 수
 	private int startPage;			//첫 페이지 번호
@@ -21,6 +22,8 @@ public class Pagination {
 	}
 	
 	public void calculation(SearchDTO params) {
+		
+		page = params.getPage();
 		
 		//전체 페이지 수 계산
 		totalPageCount = ((totalRecordCount - 1)/ params.getRecordSize()) + 1;

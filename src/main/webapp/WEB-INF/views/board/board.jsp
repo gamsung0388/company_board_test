@@ -18,44 +18,23 @@
 	<jsp:include page="../menu.jsp" flush="false"></jsp:include>	
 	<div>
 		<table class="table table-boarderless">
-			<tr>
-				<th scope="col">번호</th>
-				<th scope="col">카테고리</th>
-				<th scope="col">제목</th>
-				<th scope="col">글쓴이</th>
-				<th scope="col">조회수</th>
-				<th scope="col">날짜</th>
-			</tr>
-			<c:forEach var="boardData"  items="${boardList}"> 
+			<thead>
 				<tr>
-					<th scope="row" class="bnum"><c:out value="${boardData.board_num}"></c:out></th>
-					<td class="bcate"><c:out value="${boardData.board_cgy_txt}"></c:out></td>
-					<td class="btitle">
-						<a class="boardDetailGo" data-bnum = "${boardData.board_num}">
-							<c:out value="${boardData.board_title}"></c:out>
-						</a>
-					</td>
-					<td>
-						<c:out value="${boardData.user_name}"></c:out>
-					</td>
-					<td class="bcnt"><c:out value="${boardData.board_viewcnt}"></c:out></td>
-					<td class="bdate"><c:out value="${boardData.board_date}"></c:out></td>
+					<th><input type="checkbox" id="allChk"></th>
+					<th scope="col">번호</th>
+					<th scope="col">카테고리</th>
+					<th scope="col">제목</th>
+					<th scope="col">글쓴이</th>
+					<th scope="col">조회수</th>
+					<th scope="col">날짜</th>
 				</tr>
-			</c:forEach>
+			</thead>
+			<tbody id="boardHtml">
+			</tbody>
 		</table>
 		
-		<div align="center">
-			<c:if test="${pagination.existPrevPage==true}">
-				<a class="pagecnt" data-cnt="${pagination.startPage-1}" href="javascript:void(0);">이전</a>
-			</c:if>
+		<div id="pageHtml" align="center">
 			
-			<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="i">
-				<a class="pagecnt" data-cnt="${i}" href ="javascript:void(0);">${i}</a>
-			</c:forEach>
-			
-			<c:if test="${pagination.existNextPage==true}">
-				<a class="pagecnt" data-cnt="${pagination.endPage+1}" href="javascript:void(0);">다음</a>
-			</c:if>
 		</div>		
 		
 		<div align="center">
@@ -63,10 +42,11 @@
 				<option value="username">글쓴이</option>
 				<option value="title">제목</option>
 			</select>
-			<input type="text" id="searchtxt" value=""><button>검색</button>
+			<input type="text" id="searchtxt" value=""><button id="searchBtn">검색</button>
 		</div>
 		<div align="right">
 			<button id="boardInsert">등록</button>
+			<button id="boardDelete">삭제</button>
 		</div>
 		
 	</div>

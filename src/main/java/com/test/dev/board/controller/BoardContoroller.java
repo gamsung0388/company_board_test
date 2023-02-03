@@ -43,6 +43,7 @@ public class BoardContoroller {
 	 * */
 	
 	//게시물 목록
+	@ResponseBody
 	@GetMapping("/board/select")
 	public Map<String, Object> boardSelect(HttpServletRequest request,@ModelAttribute("params") SearchDTO params) throws Exception{
 		
@@ -56,7 +57,7 @@ public class BoardContoroller {
 			
 			successYN = "L";
         	map.put("successYN", successYN);
-			map.put("url","redirect:/loginpage");
+			map.put("url","/loginpage");
 			
             return map;
         }		

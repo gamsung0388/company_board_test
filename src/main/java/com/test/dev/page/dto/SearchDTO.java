@@ -16,6 +16,8 @@ public class SearchDTO {
 		this.page = 1;
 		this.recordSize = 10;
 		this.pageSize = 5;
+		this.keyword = "";
+		this.searchType = "";
 	}
 	
 //	public int getOffset() {
