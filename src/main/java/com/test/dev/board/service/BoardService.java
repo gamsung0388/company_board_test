@@ -76,6 +76,16 @@ public class BoardService {
 		boardDAO.boardDelete(bnum);
 	}
 	
+	//삭제
+	public void boardAllDelete(List<String> chkArr) throws Exception{
+		
+		for(int i=0;i<chkArr.size();i++) {
+			String bnum = chkArr.get(i);
+			
+			boardDAO.boardDelete(bnum);
+		}
+	}
+	
 	//카테고리
 	public List<CategoryDTO> selectCt() throws Exception{
 		List<CategoryDTO> ctlist = boardDAO.selectCt();

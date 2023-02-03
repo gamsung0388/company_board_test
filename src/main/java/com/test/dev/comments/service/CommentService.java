@@ -117,11 +117,24 @@ public class CommentService {
 		
 		return "Y";
 	}
-	
 	//댓글 게시글 삭제시 삭제
 	public void commentBoardDelete(int bnum) {
 		try {
 			commentDAO.commentBoardDelete(bnum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//댓글 게시글 삭제시 삭제
+	public void commentBoardAllDelete(List<String> chkArr) {
+		try {
+			
+			for(int i = 0;i<chkArr.size();i++) {
+				int bnum = Integer.parseInt(chkArr.get(i)) ;
+				
+				commentDAO.commentBoardDelete(bnum);
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

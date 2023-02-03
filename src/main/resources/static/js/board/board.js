@@ -7,9 +7,43 @@ $(function(){
 		location.href = "/board/detail?bnum="+bnum;
 	});	
 	
+	$("#allChk").on("click",function(){
+		let chked = $(this).is(":checked");
+		
+		if(chked==false){
+			$("[name='chk']").prop("checked", false)
+		}else{
+			$("[name='chk']").prop("checked", true)	
+		}
+	});
+	
+	$(document).on("click","[name='chk']",function(){
+		let total = $("[name='chk']").length;
+		let checked = $("[name='chk']:checked").length;
+		
+		if(total != checked){
+			$("#allChk").prop("checked",false);
+		} else{
+			$("#allChk").prop("checked",true);
+		}
+		
+	});
 	//등록버튼
 	$("#boardInsert").on('click',function(){
 		location.href = "/board/insertpage";
+	});
+	//삭제버튼
+	$("#boardDelete").on("click",function(){
+		
+		var chk_arr = [];
+		$("[name='chk']:checked").each(function(){
+			var chk = $(this).val();
+			chk_arr.push(chk);
+		});
+		
+		console.log("chk_arr: ",chk_arr);
+		
+		boardDelte(chk_arr);	
 	});	
 	
 	//페이지
@@ -48,6 +82,42 @@ $(function(){
 		//location.href = "/board/board?"+new URLSearchParams(params);
 	});	
 	
+	function boardDelte(chkArr){
+		
+		const param = {
+			chkArr : chkArr
+		}
+		
+		$.ajax({
+			type:"GET",
+			url:"/board/alldelete",
+			data:param,
+			success: function(data){
+				var successYN =data.successYN;
+				
+				if(successYN=='Y'){
+					
+					var sparam = {
+						page : 1,
+						recordSize : 10,
+						pageSize : 5,
+						keyword : '',
+						searchType : ''
+					}
+					
+					searchPage(sparam);
+				}else if(successYN=='L'){
+					
+					location.href = url;
+					
+				}
+				
+			},
+			error: function(e){
+				
+			}
+		})
+	}
 	
 	function searchPage(param){
 		$.ajax({
@@ -76,7 +146,7 @@ $(function(){
 						let boardData = boardList[i]; 
 						boardhtml 	+=  '<tr>'
 									+	'	<td>'
-									+	'		<input type="checkbox" name="chk">'
+									+	'		<input type="checkbox" name="chk" value="'+boardData.board_num+'">'
 									+	' 	</td>'
 									+	'	<th scope="row" class="bnum">'+boardData.board_num+'</th>'
 									+	'	<td class="bcate">'+boardData.board_cgy_txt+'</td>'

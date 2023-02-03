@@ -7,12 +7,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,14 +33,7 @@ public class BoardContoroller {
 	
 	@Autowired
 	private CommentService commentService;
-	
-	
-	/**
-	 * @text 내일 와서 search 마무리 해야됨
-	 * 
-	 * 
-	 * */
-	
+		
 	//게시물 목록
 	@ResponseBody
 	@GetMapping("/board/select")
@@ -72,6 +64,7 @@ public class BoardContoroller {
 		
 		return map;
 	}
+	
 	
 	//게시물 상세로
 	@GetMapping("/board/detail")
@@ -193,7 +186,7 @@ public class BoardContoroller {
 	//게시물 수정
 	@ResponseBody
 	@GetMapping("/board/update")
-	public Map<String, Object> boardUpdate(BoardDTO baordDTO,HttpServletRequest request)throws Exception{
+	public Map<String, Object> boardUpdate(BoardDTO boardDTO,HttpServletRequest request)throws Exception{
 		
 		log.info("게시물 수정");
 		
@@ -211,14 +204,14 @@ public class BoardContoroller {
             return map;
         }
 		
-		successYN = boardService.boardUpdate(baordDTO);
+		successYN = boardService.boardUpdate(boardDTO);
 		
-		if(!baordDTO.getFileIdxs().isEmpty()) {
-			log.info("boardUpdate2: " + baordDTO.getFileIdxs());
-			boardService.insertBoardFile(baordDTO);	
+		if(!boardDTO.getFileIdxs().isEmpty()) {
+			log.info("boardUpdate2: " + boardDTO.getFileIdxs());
+			boardService.insertBoardFile(boardDTO);	
 		}
-		if(baordDTO.getDelete_files()!=null) {
-			boardService.deleteBoardFile(baordDTO.getDelete_files());
+		if(boardDTO.getDelete_files()!=null) {
+			boardService.deleteBoardFile(boardDTO.getDelete_files());
 		}
 		
 		map.put("successYN", successYN);
@@ -231,10 +224,46 @@ public class BoardContoroller {
 	public String boardDelete(String bnum,HttpServletRequest request)throws Exception{
 		
 		log.info("게시물 삭제");
+		
+		HttpSession session = request.getSession(false);
+        if (session == null || !request.isRequestedSessionIdValid()) {
+        	
+            return "redirect:/loginpage";
+        }
+		
 		commentService.commentBoardDelete(Integer.parseInt(bnum));
 		boardService.boardDelete(bnum);
 		
 		return "redirect:/board/board";
 	}
 
+	//게시물삭제
+	@GetMapping("/board/alldelete")
+	@ResponseBody
+	public Map<String, Object> boardAllDelete(@RequestParam(value="chkArr[]") List<String> chkArr ,HttpServletRequest request)throws Exception{
+		
+		String successYN = "";
+		Map<String, Object> map = new HashMap<>();
+		
+		HttpSession session = request.getSession(false);
+        if (session == null || !request.isRequestedSessionIdValid()) {
+        	successYN = "L";
+        	
+        	map.put("successYN", successYN);
+        	map.put("url", "/loginpage");
+        	
+            return map;
+        }
+		
+		log.info("게시물 전체 삭제");
+		
+		commentService.commentBoardAllDelete(chkArr);
+		boardService.boardAllDelete(chkArr);
+		
+		successYN = "Y";
+		map.put("successYN", successYN);
+		
+		return map;
+	}
+	
 }
