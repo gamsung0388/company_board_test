@@ -13,7 +13,7 @@
 <link href="/static/css/common.css" rel="stylesheet">
 <script src="/static/js/board/board.js"></script>
 <%
-	
+
 %>
 </head>
 <body>
@@ -29,7 +29,8 @@
 					<th scope="col">글쓴이</th>
 					<th scope="col">조회수</th>
 					<th scope="col">
-						날짜 <img id="calendar" style="width: 20px" src="/static/img/calendar.png">
+						날짜 
+						<img style="width: 20px" src="/static/img/calendar.png">
 					</th>
 				</tr>
 			</thead>

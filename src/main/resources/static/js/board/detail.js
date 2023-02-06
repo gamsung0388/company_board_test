@@ -37,7 +37,7 @@ $(function(){
 				success: function(data){
 					var _data = data || {};
 					
-					console.log(_data);
+//					console.log(_data);
 										
 					comment_selete_html(_data);									
 				},
@@ -160,28 +160,25 @@ $(function(){
 					console.log("commentList: "+ JSON.stringify(_data.commentList));
 					$("#comment_html").empty();
 					var html ="";
+					var comment_num = "";
 					$.each(commentList,function(i,data){
-						html	+= '<div id ="comment" style="border:2px solid; padding:10px" data-commentnum="'+data.coment_num+'" data-commentnum="'+data.coment_num+'" data-commentclass = "'+data.comment_class+'" data-commentorder = "'+data.comment_order+'">'
-							 	+ '	<b>'+data.user_name+'</b>'
-							 	+ '	<button class = "comment_delete">삭제</button>'
-							 	+ '	<button class = "comment_answer_div">답글</button>'
-							 	+ '	<div>'+	data.comment_txt+ '	</div>'
-							 	+ '	<div class="coment_reply">'
-							 	+ '	</div>';
-							 
-							 $.each(data.answerList,function(j,adata){
-								 console.log("adata: ",adata);
-								 html 	+='<div data-commentnum="'+adata.coment_num+'" data-commentnum="'+adata.coment_num+'" data-commentclass = "'+adata.comment_class+'" data-commentorder = "'+adata.comment_order+'">'
-								 		+ '	<img src="/static/img/turn.png" style="width: 20px;">'
-										+ '	<b>'+adata.user_name+'</b>'
-								 		+ '	<button class = "comment_delete">삭제</button>'
-								 		+ '	<button class = "comment_answer_div">답글</button>'
-								 	  	+ '	<div>' + adata.comment_txt + '</div>'
-									  	+ '	<div class="coment_reply">'
-									  	+ '	</div>'
-									  	+ '</div>';
-							 });
-							 
+						var comment_class = data.comment_class;
+						
+						comment_num = data.comment_num;
+						
+						html	+= '<div id ="comment" style="border:2px solid; padding:10px" data-commentnum="'+data.coment_num+'" data-commentnum="'+data.coment_num+'" data-commentclass = "'+data.comment_class+'" data-commentorder = "'+data.comment_order+'">';
+						if(comment_class!='0'){
+							html += '<img src="/static/img/turn.png" style="width: 20px;">';
+						}							 	
+						html	+= '	<b>'+data.user_name+'</b>'
+							 	+  '	<button class = "comment_delete">삭제</button>'
+							 	+  '	<button class = "comment_answer_div">답글</button>'
+							 	+  '	<div>'+	data.comment_txt+ '	</div>'
+							 	+  '	<div class="coment_reply">'
+							 	
+							 	
+							 	+  '	</div>';
+							 							 
 						html += '</div>';	
 					});					
 					$("#comment_html").append(html);

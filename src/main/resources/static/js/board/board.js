@@ -1,9 +1,5 @@
 $(function(){
 	
-//	$("#calendar").datepicker({
-//		
-//	});
-	
 	//클릭시 게시물 상세로
 	$(document).on('click','.boardDetailGo',function(){
 		var bnum = this.dataset.bnum;

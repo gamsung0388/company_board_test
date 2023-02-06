@@ -66,20 +66,51 @@
 		AND GROUP_NUM = #{group_num};
 	</update>
 	<select id="commentSelect" parameterType="com.test.dev.comments.dto.CommentDTO" resultType="com.test.dev.comments.dto.CommentDTO">
+		
+		WITH RECURSIVE CTS AS (
+			SELECT 
+				C.COMENT_NUM,
+				C.COMMENT_USER_ID,
+				M.USER_NAME,
+				C.COMMENT_TXT, 
+				C.BOARD_NUM, 
+				C.COMMENT_CLASS, 
+				C.COMMENT_ORDER, 
+				C.GROUP_NUM,
+		        CAST(COMENT_NUM AS CHAR(100)) lvl
+			FROM COMMENTS C
+			LEFT JOIN MEMBERS M ON M.USER_ID = C.COMMENT_USER_ID
+			WHERE 1=1
+			AND C.BOARD_NUM = #{board_num}
+		    AND COMMENT_CLASS= 0
+		    UNION ALL
+		    SELECT C.COMENT_NUM
+			   ,C.COMMENT_USER_ID
+		       ,M.USER_NAME
+			   ,C.COMMENT_TXT
+			   ,C.BOARD_NUM
+			   ,C.COMMENT_CLASS
+			   ,C.COMMENT_ORDER
+			   ,C.GROUP_NUM
+		       ,CONCAT(S.LVL, ",", C.COMENT_NUM) LVL
+			FROM COMMENTS C
+		    LEFT JOIN MEMBERS M ON M.USER_ID = C.COMMENT_USER_ID
+		    INNER JOIN CTS S ON C.GROUP_NUM = S.COMENT_NUM
+		    WHERE C.COMMENT_CLASS !=0
+		    AND C.BOARD_NUM = #{board_num}
+		)
 		SELECT 
-			C.COMENT_NUM,
-			C.COMMENT_USER_ID,
-		    M.USER_NAME,
-			C.COMMENT_TXT, 
-		    C.BOARD_NUM, 
-		    C.COMMENT_CLASS, 
-		    C.COMMENT_ORDER, 
-		    C.GROUP_NUM
-		FROM COMMENTS C
-		LEFT JOIN MEMBERS M ON M.USER_ID = C.COMMENT_USER_ID
-		WHERE C.BOARD_NUM = #{board_num}
-		AND C.COMMENT_CLASS = 0
-		ORDER BY C.COMMENT_ORDER
+			COMENT_NUM
+		    ,COMMENT_USER_ID
+		    ,USER_NAME
+		    ,CONCAT(REPEAT(" ",COMMENT_CLASS),"ㄴ",COMMENT_TXT)COMMENT_TXT
+		    ,BOARD_NUM
+			,COMMENT_CLASS
+		    ,COMMENT_ORDER
+		    ,GROUP_NUM
+		    ,LVL
+		from CTS
+		ORDER BY LVL
 	</select>
 	<select id="answerSelect" parameterType="com.test.dev.comments.dto.CommentDTO" resultType="com.test.dev.comments.dto.CommentDTO">
 		SELECT 

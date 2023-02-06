@@ -18,7 +18,7 @@ String grade = (String)session.getAttribute("grade");
 </head>
 <body>
 
-	<div class="page_body">
+	<div class="page_body" align="center">
 		<div class="header_menu">
 			<h1>
 				 게시판

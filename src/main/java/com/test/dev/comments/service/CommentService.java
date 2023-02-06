@@ -25,33 +25,12 @@ public class CommentService {
 	public List<CommentDTO> commentSelect(int board_num){
 		
 		List<CommentDTO> clist = new ArrayList<>();
-		List<CommentDTO> alist = new ArrayList<>();
-		List<CommentDTO> aalist = new ArrayList<>();
-		
 		log.info("1111:",board_num);
 		
 		try {
 			
 			clist = commentDAO.commentSelect(board_num);
-			
-			for(int i = 0;i<clist.size(); i++) {
-				
-				CommentDTO cdata = clist.get(i);
-				System.out.println("cdata: "+cdata);
-				alist = commentDAO.answerSelect(cdata);
-				
-					for(int j=0;j<alist.size();j++) {
-						CommentDTO adata = alist.get(j);
-						
-						System.out.println("aadata: "+adata);
-						aalist = commentDAO.answerSelect(adata);						
-						
-						cdata.setAnswerList(aalist);						
-					}
-				
-				cdata.setAnswerList(alist);
-			}
-			
+		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
