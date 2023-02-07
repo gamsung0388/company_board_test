@@ -68,7 +68,7 @@ public class BoardContoroller {
 	
 	//게시물 상세로
 	@GetMapping("/board/detail")
-	public ModelAndView board(String bnum,HttpServletRequest request)throws Exception{
+	public ModelAndView board(String bnum,String pageId,HttpServletRequest request)throws Exception{
 		
 		log.info("게시물 상세");
 		
@@ -92,6 +92,8 @@ public class BoardContoroller {
 		mv.addObject("boardFilelist",list);
 		mv.addObject("commentList",clist);
 		mv.addObject("boardDetail",boardDetail);
+		mv.addObject("pageId",pageId);
+		
 		mv.setViewName("/board/detail");
 		
 		return mv;
@@ -99,7 +101,7 @@ public class BoardContoroller {
 	
 	//등록 페이지 이동
 	@GetMapping("/board/insertpage")
-	public ModelAndView boardInsertpage(HttpServletRequest request)throws Exception{
+	public ModelAndView boardInsertpage(String pageId ,HttpServletRequest request)throws Exception{
 		
 		log.info("게시물 등록 페이지 이동");
 		
@@ -115,6 +117,7 @@ public class BoardContoroller {
 		
 		mv.addObject("selectCt",selectCt);
 		mv.addObject("boardtype","insert");
+		mv.addObject("pageId",pageId);
 		mv.setViewName("/board/insert");
 		
 		return mv;
@@ -122,7 +125,7 @@ public class BoardContoroller {
 	
 	//수정 페이지 이동
 	@GetMapping("/board/updatepage")
-	public ModelAndView boardUpdatepage(String bnum,HttpServletRequest request)throws Exception{
+	public ModelAndView boardUpdatepage(String bnum,String pageId,HttpServletRequest request)throws Exception{
 		
 		log.info("게시물 수정 페이지 이동");
 		
@@ -142,6 +145,7 @@ public class BoardContoroller {
 		mv.addObject("selectCt",selectCt);
 		mv.addObject("boardDetail",boardDetail);
 		mv.addObject("boardtype","update");
+		mv.addObject("pageId",pageId);
 		mv.setViewName("/board/insert");
 		
 		return mv;

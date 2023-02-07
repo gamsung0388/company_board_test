@@ -37,7 +37,9 @@
   	FROM
   		BOARD B
   		LEFT JOIN MEMBERS M on B.USER_ID = M.USER_ID
+  		LEFT JOIN CATEGORY C ON C.BOARD_CGY_NUM = B.BOARD_CGY_NUM  
   	WHERE 1=1
+  	AND C.BOARD_CGY_NUM = #{categoryId}
 	<if test="searchType.equals('title')">
 		AND B.BOARD_TITLE like CONCAT('%',#{keyword},'%')
     </if>

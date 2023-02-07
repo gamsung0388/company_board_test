@@ -18,6 +18,13 @@ var delete_files = [];
 
 
 $(function(){
+	
+//	$(document).ready(function(){
+//	
+//		$("#board_cgy_num")
+//	
+//	});	
+		
 		
 	//뒤로
 	$("#backPage").on('click',function(){
@@ -141,7 +148,7 @@ $(function(){
 		if(chked==true){
 			 
 			var board_num = $("#board_num").val();
-			var board_cgy_num = $("[name=board_cgy_num]").val();
+			var board_cgy_num = $("#board_cgy_num").val();
 			var board_title = $("#board_title").val();
 			var board_txt = $("#board_txt").val();
 			var board_tag = $("#board_tag").val();
@@ -164,7 +171,8 @@ $(function(){
 				success: function(data){
 					console.log("data: ",data);
 					if(data.successYN=='Y'){
-						location.href="/board/board"	
+						const pageid = $("#pageId").data("pageid");
+						location.href="/board/"+pageid;	
 					}
 				
 			   		},
@@ -180,7 +188,7 @@ $(function(){
 		if(chked==true){
 			 
 			var board_num = $("#board_num").val();
-			var board_cgy_num = $("[name=board_cgy_num]").val();
+			var board_cgy_num = $("#board_cgy_num").val();
 			var board_title = $("#board_title").val();
 			var board_txt = $("#board_txt").val();
 			var board_tag = $("#board_tag").val();
@@ -204,7 +212,8 @@ $(function(){
 				success: function(data){
 					console.log("data: "+data);
 					if(data.successYN=='Y'){
-						location.href="/board/board"	
+						const pageid = $("#pageId").data("pageid");
+						location.href="/board/"+pageid;	
 					}
 				
 			   		},

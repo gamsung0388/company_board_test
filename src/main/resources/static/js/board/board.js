@@ -22,9 +22,12 @@ $(function(){
 	$(document).on('click','.boardDetailGo',function(){
 		var bnum = this.dataset.bnum;
 		
-		location.href = "/board/detail?bnum="+bnum;
+		let pageId = "board";
+		
+		location.href = "/board/detail?bnum="+bnum + "&pageId="+ pageId;
 	});	
 	
+	//전체 삭제
 	$("#allChk").on("click",function(){
 		let chked = $(this).is(":checked");
 		
@@ -35,6 +38,7 @@ $(function(){
 		}
 	});
 	
+	//하나 체크시 전체 삭제 풀림
 	$(document).on("click","[name='chk']",function(){
 		let total = $("[name='chk']").length;
 		let checked = $("[name='chk']:checked").length;
@@ -48,7 +52,8 @@ $(function(){
 	});
 	//등록버튼
 	$("#boardInsert").on('click',function(){
-		location.href = "/board/insertpage";
+		let pageId = "board";
+		location.href = "/board/insertpage?pageId="+pageId;
 	});
 	//삭제버튼
 	$("#boardDelete").on("click",function(){

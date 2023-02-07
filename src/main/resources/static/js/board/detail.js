@@ -7,7 +7,10 @@ $(function(){
 	//게시글 수정페이지
 	$("#boardUpdate").on('click',function(){
 		var bnum = $(this).val();
-		location.href = "/board/updatepage?bnum="+bnum;
+		
+		var pageId = $("#pageId").data("pageid");
+		
+		location.href = "/board/updatepage?bnum="+bnum+"&pageId="+pageId;
 	});
 	
 	//게시글 삭제페이지

@@ -1,4 +1,3 @@
-<%@page import="com.test.dev.board.dto.BoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -7,21 +6,27 @@
 <meta charset="UTF-8">
 <title>게시판</title>
 <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+<script src="/static/js/jquery-ui.min.js"></script>
+<link href= "stylesheet" href="/static/css/jquery-ui.css" type="text/css">
 <link href ="/webjars/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="shortcut icon" href="/static/img/favicon.ico">
 <link href="/static/css/common.css" rel="stylesheet">
-<script src="/static/js/board/insert.js"></script>
+<script src="/static/js/board/board.js"></script>
 <%
+
+String grade = (String)session.getAttribute("grade");
+
 %>
 </head>
 <body>
-	<header>
-		<a id="backPage" href="javascript:void(0);"><img src="/static/img/back.png" width="30px"></a>
-		<h2 id="title"></h2>
-	</header>
-	<div>
+	<jsp:include page="../menu.jsp" flush="false"></jsp:include>
+<!-- 	<header> -->
+<!-- 		<a id="backPage" href="javascript:void(0);"><img src="/static/img/back.png" width="30px"></a> -->
+<!-- 		<h2 id="title"></h2> -->
+<!-- 	</header> -->
+	<div id="pageId" data-pageid="${pageId}">
 		<p> 카테고리: 
-			<select name="board_cgy_num">
+			<select id="board_cgy_num">
 				<c:forEach items="${selectCt}" var="categoryData">
 					<option value="${categoryData.board_cgy_num}">${categoryData.board_cgy_txt}</option>
 				</c:forEach>							

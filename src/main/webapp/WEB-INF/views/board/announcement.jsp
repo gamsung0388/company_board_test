@@ -14,7 +14,7 @@
 <script src="/static/js/board/announcement.js"></script>
 <%
 
-String grade = (String)session.getAttribute("grade");
+	String grade = (String)session.getAttribute("grade");
 
 %>
 </head>

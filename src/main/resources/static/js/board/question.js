@@ -16,6 +16,138 @@ $(function(){
 		
 	});
 	
+	//클릭시 게시물 상세로
+	$(document).on('click','.boardDetailGo',function(){
+		var bnum = this.dataset.bnum;
+		
+		let pageId = "question";
+		
+		location.href = "/board/detail?bnum="+bnum + "&pageId="+ pageId;
+	});	
+	
+	//전체 삭제
+	$("#allChk").on("click",function(){
+		let chked = $(this).is(":checked");
+		
+		if(chked==false){
+			$("[name='chk']").prop("checked", false)
+		}else{
+			$("[name='chk']").prop("checked", true)	
+		}
+	});
+	
+	//하나 체크시 전체 삭제 풀림
+	$(document).on("click","[name='chk']",function(){
+		let total = $("[name='chk']").length;
+		let checked = $("[name='chk']:checked").length;
+		
+		if(total != checked){
+			$("#allChk").prop("checked",false);
+		} else{
+			$("#allChk").prop("checked",true);
+		}
+		
+	});
+	//등록버튼
+	$("#boardInsert").on('click',function(){
+		let pageId = "question";
+		location.href = "/board/insertpage?pageId="+pageId;
+	});
+	//삭제버튼
+	$("#boardDelete").on("click",function(){
+		
+		let chkleng = $("[name='chk']:checked").length;
+		
+		if(chkleng==0){
+			alert("삭제할 게시글을 체크해주세요");
+		}else{
+			var chk_arr = [];
+			$("[name='chk']:checked").each(function(){
+				var chk = $(this).val();
+				chk_arr.push(chk);
+			});
+			
+			console.log("chk_arr: ",chk_arr);
+			
+			boardDelte(chk_arr);	
+		}	
+	});	
+	
+	//페이지
+	$(document).on("click",".pagecnt",function(){
+		
+		var cnt = $(this).data("cnt");
+		var searchType = $("#searchType").val();
+		var searchtxt = $("#searchtxt").val();
+		
+		var param = {
+			page : cnt,
+			recordSize : 10,
+			pageSize : 5,
+			keyword : searchtxt,
+			searchType : searchType,
+			categoryId : '1'
+		}
+		searchPage(param)
+		//location.href = "/board/board?"+new URLSearchParams(param);
+						
+	});
+	
+	$("#searchBtn").on("click",function(){
+		
+		var cnt = $(this).data("cnt");
+		var searchType = $("#searchType").val();
+		var searchtxt = $("#searchtxt").val();
+		
+		var param = {
+			page : cnt,
+			recordSize : 10,
+			pageSize : 5,
+			keyword : searchtxt,
+			searchType : searchType
+		}
+		searchPage(param)
+		//location.href = "/board/board?"+new URLSearchParams(params);
+	});	
+	
+	function boardDelte(chkArr){
+		
+		const param = {
+			chkArr : chkArr
+		}
+		
+		$.ajax({
+			type:"GET",
+			url:"/board/alldelete",
+			data:param,
+			success: function(data){
+				var successYN =data.successYN;
+				
+				if(successYN=='Y'){
+					
+					var sparam = {
+						page : 1,
+						recordSize : 10,
+						pageSize : 5,
+						keyword : '',
+						categoryId : '1'
+					}
+					
+					searchPage(sparam);
+				}else if(successYN=='L'){
+					
+					location.href = url;
+					
+				}
+				
+			},
+			error: function(e){
+				
+			}
+		})
+	}
+	
+	
 	function searchPage(param){
 		$.ajax({
 			type:"GET",
