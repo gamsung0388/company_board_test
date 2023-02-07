@@ -41,6 +41,24 @@ $(function(){
 		
 	pageGo();
 
+	$(".navbar-toggler").on('click',function(){
+		
+		var ariaExpandedYn = $('.navbar-toggler').attr("aria-expanded");
+		
+		if(ariaExpandedYn=='true'){
+			$('.navbar-toggler').addClass('collapsed');
+			$('.navbar-toggler').attr("aria-expanded",false);
+			$('.navbar-collapse').removeClass('show');
+		}else{
+			$('.navbar-toggler').removeClass('collapsed');
+			$('.navbar-toggler').attr("aria-expanded",true);
+			$('.navbar-collapse').addClass('show');
+		}
+		
+	});
+
+
+
 });
 
 

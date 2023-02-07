@@ -20,23 +20,41 @@ String grade = (String)session.getAttribute("grade");
 
 	<div class="page_body" align="center">
 		<div class="header_menu">
-			<h1>
-				 게시판
-			</h1>
-			<ul class="main_menu">
-				<li class="menu_lit"><a id="home" href="javascript:void(0);">홈</a></li>
-				<li class="menu_lit"><a id="announcement" href="javascript:void(0);">공지사항</a></li>
-				<li class="menu_lit"><a id="board" href="javascript:void(0);">게시글</a></li>
-				<li class="menu_lit"><a id="event" href="javascript:void(0);">이벤트</a></li>
-				<li class="menu_lit"><a id="question" href="javascript:void(0);">고객문의</a></li>
-				<li class="menu_lit"><a id="api" href="javascript:void(0);">api</a></li>
-				<li class="menu_lit"><a id="logout" href="javascript:void(0);">로그아웃</a></li>
-				<li class="menu_lit"><a id="memberUpdate" href="javascript:void(0);">개인수정</a></li>
-				<c:if test="${grade=='M'}">
-					<li class="menu_lit"><a id="memberManage" href="javascript:void(0);">회원관리</a></li>
-				</c:if>
-<!-- 				<li class="menu_lit"><a href=""></a></li> -->
-			</ul>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			  <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+			    <a class="navbar-brand" href="/">게시판</a>
+			    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+			    
+<!-- 					<li class="nav-item active"> -->
+<!-- 				    	<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
+<!-- 				    </li> -->
+<!-- 				    <li class="nav-item"> -->
+<!-- 				    	<a class="nav-link" href="#">Link</a> -->
+<!-- 				    </li> -->
+<!-- 				    <li class="nav-item"> -->
+<!-- 				    	<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
+<!-- 				    </li> -->
+				      
+			      	<li class="nav-item"><a class="nav-link" id="home" href="javascript:void(0);">홈</a></li>
+					<li class="nav-item"><a class="nav-link" id="announcement" href="javascript:void(0);">공지사항</a></li>
+					<li class="nav-item"><a class="nav-link" id="board" href="javascript:void(0);">게시글</a></li>
+					<li class="nav-item"><a class="nav-link" id="event" href="javascript:void(0);">이벤트</a></li>
+					<li class="nav-item"><a class="nav-link" id="question" href="javascript:void(0);">고객문의</a></li>
+					<li class="nav-item"><a class="nav-link" id="api" href="javascript:void(0);">api</a></li>
+					<li class="nav-item"><a class="nav-link" id="logout" href="javascript:void(0);">로그아웃</a></li>
+					<li class="nav-item"><a class="nav-link" id="memberUpdate" href="javascript:void(0);">개인수정</a></li>
+					<c:if test="${grade=='M'}">
+						<li class="nav-item"><a class="nav-link" id="memberManage" href="javascript:void(0);">회원관리</a></li>
+					</c:if>
+			      
+			    </ul>
+			    
+			  </div>
+			</nav>
+			
 		</div>
 		<div >
 			

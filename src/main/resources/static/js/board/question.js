@@ -1,4 +1,6 @@
 $(function(){
+	$(".nav-item #question").addClass('active');
+	
 	$(document).ready(function(){
 		$(document).attr("title","고객문의");
 	

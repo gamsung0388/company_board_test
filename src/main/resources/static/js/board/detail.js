@@ -1,5 +1,9 @@
 $(function(){
 	
+	$(document).ready(function(){
+		$(".nav-item #board").addClass('active');
+	});	
+	
 	//게시글 수정페이지
 	$("#boardUpdate").on('click',function(){
 		var bnum = $(this).val();

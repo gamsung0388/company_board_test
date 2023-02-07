@@ -1,4 +1,7 @@
 $(function(){
+	$(".nav-item #event").addClass('active');
+	
+	
 	$(document).ready(function(){
 		$(document).attr("title","이벤트");
 		var param = {

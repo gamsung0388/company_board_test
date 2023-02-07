@@ -1,4 +1,5 @@
 $(function(){
+	$(".nav-item #memberManage").addClass('active');
 	$("#updateBtn").click(function(){
 		console.log("111111");
 		var userId = $("#userId").val();

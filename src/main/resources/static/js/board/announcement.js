@@ -1,4 +1,5 @@
 $(function(){
+	$(".nav-item #announcement").addClass('active');
 	$(document).ready(function(){
 		$(document).attr("title","공지");
 		var param = {

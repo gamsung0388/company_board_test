@@ -1,5 +1,8 @@
 $(function(){
+	$(".nav-item #board").addClass('active');
+	
 	$(document).ready(function(){
+		
 		$(document).attr("title","보통 게시글");
 				
 			var param = {

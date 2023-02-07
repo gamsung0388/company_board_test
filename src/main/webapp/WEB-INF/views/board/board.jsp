@@ -12,9 +12,9 @@
 <link rel="shortcut icon" href="/static/img/favicon.ico">
 <link href="/static/css/common.css" rel="stylesheet">
 <script src="/static/js/board/board.js"></script>
-  
-
 <%
+
+String grade = (String)session.getAttribute("grade");
 
 %>
 </head>
@@ -44,11 +44,14 @@
 		</div>		
 		
 		<div align="center">
-			<select id="searchType">
+			<form class="form-inline my-2 my-lg-0">
+		      <select id="searchType">
 				<option value="username">글쓴이</option>
 				<option value="title">제목</option>
 			</select>
-			<input type="text" id="searchtxt" value=""><button id="searchBtn">검색</button>
+		      <input class="form-control mr-sm-2" type="search" placeholder="Search" id="searchtxt" aria-label="Search">
+		      <button class="btn btn-outline-success my-2 my-sm-0" id="searchBtn" type="submit">검색</button>
+		    </form>
 		</div>
 		<div align="right">
 			<button id="boardInsert">등록</button>

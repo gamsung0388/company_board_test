@@ -14,6 +14,8 @@
 <script src="/static/js/board/announcement.js"></script>
 <%
 
+String grade = (String)session.getAttribute("grade");
+
 %>
 </head>
 <body>
@@ -44,9 +46,11 @@
 			</select>
 			<input type="text" id="searchtxt" value=""><button id="searchBtn">검색</button>
 		</div>
-		<div align="right">
-			<button id="boardInsert">등록</button>
-			<button id="boardDelete">삭제</button>
-		</div>
+		<c:if test="${grade=='M'}">
+			<div align="right">
+				<button id="boardInsert">등록</button>
+				<button id="boardDelete">삭제</button>
+			</div>
+		</c:if>
 </body>
 </html>

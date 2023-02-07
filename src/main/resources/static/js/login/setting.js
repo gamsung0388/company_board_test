@@ -1,5 +1,5 @@
 $(function(){
-	
+	$(".nav-item #memberUpdate").addClass('active');
 	$("#memberJoinBtn").click(function(){
 		var userId = $("#userId").val();
 		var userPw = $("#userPw").val();

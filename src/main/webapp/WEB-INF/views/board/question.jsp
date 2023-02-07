@@ -10,6 +10,11 @@
 <link rel="shortcut icon" href="/static/img/favicon.ico">
 <link href="/static/css/common.css" rel="stylesheet">
 <script src="/static/js/board/question.js"></script>
+<%
+
+String grade = (String)session.getAttribute("grade");
+
+%>
 </head>
 <body>
 	<div>
@@ -40,10 +45,12 @@
 			</select>
 			<input type="text" id="searchtxt" value=""><button id="searchBtn">검색</button>
 		</div>
-		<div align="right">
-			<button id="boardInsert">등록</button>
-			<button id="boardDelete">삭제</button>
-		</div>	
+		<c:if test="${grade=='M'}">
+			<div align="right">
+				<button id="boardInsert">등록</button>
+				<button id="boardDelete">삭제</button>
+			</div>	
+		</c:if>
 	</div>
 </body>
 </html>
