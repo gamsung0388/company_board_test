@@ -25,6 +25,7 @@ String grade = (String)session.getAttribute("grade");
 			</h1>
 			<ul class="main_menu">
 				<li class="menu_lit"><a id="home" href="javascript:void(0);">홈</a></li>
+				<li class="menu_lit"><a id="announcement" href="javascript:void(0);">공지사항</a></li>
 				<li class="menu_lit"><a id="board" href="javascript:void(0);">게시글</a></li>
 				<li class="menu_lit"><a id="event" href="javascript:void(0);">이벤트</a></li>
 				<li class="menu_lit"><a id="question" href="javascript:void(0);">고객문의</a></li>

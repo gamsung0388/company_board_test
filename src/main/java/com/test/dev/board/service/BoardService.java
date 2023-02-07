@@ -37,7 +37,7 @@ public class BoardService {
 		Pagination pagination = new Pagination(count, params);
 		params.setPagination(pagination);
 		
-		System.out.println("params: "+params);
+//		System.out.println("params: "+params);
 		
 		List<BoardDTO> list = boardDAO.selectBoard(params);
 		

@@ -11,6 +11,7 @@ public class SearchDTO {
 	private String keyword;			//검색키워드
 	private String searchType;		//검색유형
 	private Pagination pagination;	//페이지네이션 정보
+	private String categoryId;		//카테고리 id
 	
 	public SearchDTO() {
 		this.page = 1;

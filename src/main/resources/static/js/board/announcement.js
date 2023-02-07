@@ -1,14 +1,13 @@
 $(function(){
 	$(document).ready(function(){
-		$(document).attr("title","고객문의");
-	
+		$(document).attr("title","공지");
 		var param = {
 				page : 1,
 				recordSize : 10,
 				pageSize : 5,
 				keyword : '',
 				searchType : '',
-				categoryId : '4'
+				categoryId : '2'
 		}
 		searchPage(param);
 		
@@ -87,4 +86,4 @@ $(function(){
 			}
 		});		
 	}
-})
+});

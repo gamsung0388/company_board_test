@@ -13,8 +13,8 @@
 </head>
 <body>
 	<div>
-	<jsp:include page="../menu.jsp" flush="false"></jsp:include>	
-	<table class="table table-boarderless">
+		<jsp:include page="../menu.jsp" flush="false"></jsp:include>	
+		<table class="table table-boarderless">
 			<thead>
 				<tr>
 					<th><input type="checkbox" id="allChk"></th>

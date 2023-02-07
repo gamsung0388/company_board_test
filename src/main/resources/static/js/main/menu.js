@@ -7,6 +7,11 @@ $(function(){
 		$("#home").on('click',function(){
 			location.href = "/";
 		});
+		//공지사항
+		$("#announcement").on('click',function(){
+			pageId = "announcement";
+			location.href = "/pageGo?pageId=" + pageId;
+		});
 		$("#board").on('click',function(){
 			pageId = "board";
 			location.href = "/pageGo?pageId=" + pageId;

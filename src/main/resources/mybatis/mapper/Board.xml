@@ -27,6 +27,7 @@
 	<if test="searchType.equals('username')">
 		AND M.USER_NAME LIKE CONCAT('%',#{keyword},'%')
 	</if>	
+	AND C.board_cgy_num = #{categoryId}
 	ORDER BY BOARD_NUM DESC
 	LIMIT #{pagination.limitStart},#{recordSize};
   </select>

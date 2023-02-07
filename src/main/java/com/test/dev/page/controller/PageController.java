@@ -66,6 +66,11 @@ public class PageController {
 		
 		return "redirect:/board/"+pageId;
 	}
+	@GetMapping("/board/announcement")
+	public String announcement() throws Exception{
+		return "/board/announcement";
+	}
+	
 	
 	//게시물페이지로
 	@GetMapping("/board/board")

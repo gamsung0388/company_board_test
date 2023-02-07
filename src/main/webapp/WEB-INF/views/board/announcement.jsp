@@ -11,34 +11,28 @@
 <link href ="/webjars/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="shortcut icon" href="/static/img/favicon.ico">
 <link href="/static/css/common.css" rel="stylesheet">
-<script src="/static/js/board/board.js"></script>
-  
-
+<script src="/static/js/board/announcement.js"></script>
 <%
 
 %>
 </head>
 <body>
 	<jsp:include page="../menu.jsp" flush="false"></jsp:include>	
-	<div>
-		<table class="table table-boarderless">
+	<table class="table table-boarderless">
 			<thead>
 				<tr>
 					<th><input type="checkbox" id="allChk"></th>
 					<th scope="col">번호</th>
+					<th scope="col">카테고리</th>
 					<th scope="col">제목</th>
 					<th scope="col">글쓴이</th>
 					<th scope="col">조회수</th>
-					<th scope="col">
-						날짜 
-						<img style="width: 20px" src="/static/img/calendar.png">
-					</th>
+					<th scope="col">날짜</th>
 				</tr>
 			</thead>
 			<tbody id="boardHtml">
 			</tbody>
 		</table>
-		
 		<div id="pageHtml" align="center">
 			
 		</div>		
@@ -54,7 +48,5 @@
 			<button id="boardInsert">등록</button>
 			<button id="boardDelete">삭제</button>
 		</div>
-		
-	</div>
 </body>
 </html>

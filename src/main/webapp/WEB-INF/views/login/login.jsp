@@ -10,6 +10,7 @@
 <link rel="shortcut icon" href="/static/img/favicon.ico">
 <link href="/static/css/common.css" rel="stylesheet">
 <script src="/static/js/login/login.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <%
 	
 %>
@@ -21,5 +22,9 @@
 	<p>비밀번호 : <input type="password" id="loginPw"></p>
 	<button id="loginBtn">로그인</button>
 	<button id="memberJoinBtn">회원가입</button>
+	
+	<div id="naver_id_login">
+		
+	</div>
 </div>
 <jsp:include page="../fn.jsp" flush="false"></jsp:include>

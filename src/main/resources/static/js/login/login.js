@@ -57,6 +57,17 @@ $(function(){
 			
 		});
 	}
+	https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=jyvqXeaVOVmV&redirect_uri=http%3A%2F%2Fservice.redirect.url%2Fredirect&state=hLiDdL2uhPtsftcU
+	var clientId = "jxcTtq3MguqNAe7ISDer";
+	var callbackUrl = "https://nid.naver.com/oauth2.0/authorize";
+	var naver_id_login = new naver_id_login(clientId, callbackUrl);
+	var state = naver_id_login.getUniqState();
+	naver_id_login.setButton("white", 3, 40);
+	naver_id_login.setDomain("localhost:8000/BBS/main.jsp");
+	naver_id_login.setState(state);
+	naver_id_login.setPopup();
+	naver_id_login.init_naver_id_login();
+	
 });
 
 

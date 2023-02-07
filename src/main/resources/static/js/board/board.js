@@ -1,4 +1,19 @@
 $(function(){
+	$(document).ready(function(){
+		$(document).attr("title","보통 게시글");
+				
+			var param = {
+				page : 1,
+				recordSize : 10,
+				pageSize : 5,
+				keyword : '',
+				searchType : '',
+				categoryId : '1'
+			}
+		
+			searchPage(param);
+		}
+	);	
 	
 	//클릭시 게시물 상세로
 	$(document).on('click','.boardDetailGo',function(){
@@ -58,7 +73,8 @@ $(function(){
 			recordSize : 10,
 			pageSize : 5,
 			keyword : searchtxt,
-			searchType : searchType
+			searchType : searchType,
+			categoryId : '1'
 		}
 		searchPage(param)
 		//location.href = "/board/board?"+new URLSearchParams(param);
@@ -102,7 +118,7 @@ $(function(){
 						recordSize : 10,
 						pageSize : 5,
 						keyword : '',
-						searchType : ''
+						categoryId : '1'
 					}
 					
 					searchPage(sparam);
@@ -149,7 +165,6 @@ $(function(){
 									+	'		<input type="checkbox" name="chk" value="'+boardData.board_num+'">'
 									+	' 	</td>'
 									+	'	<th scope="row" class="bnum">'+boardData.board_num+'</th>'
-									+	'	<td class="bcate">'+boardData.board_cgy_txt+'</td>'
 									+	'	<td class="btitle">'
 									+	'		<a class="boardDetailGo" data-bnum = "'+boardData.board_num+'">'
 									+				boardData.board_title
@@ -195,19 +210,7 @@ $(function(){
 		})
 	}
 	
-	$(document).ready(function(){
-		
-			var param = {
-				page : 1,
-				recordSize : 10,
-				pageSize : 5,
-				keyword : '',
-				searchType : ''
-			}
-		
-			searchPage(param);
-		}
-	);	
+	
 	
 	
 })
